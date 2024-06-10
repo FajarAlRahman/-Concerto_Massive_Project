@@ -75,12 +75,10 @@ export const Cariteman = () => {
                             {/* Filter */}
                             <div className="filter">
                                 <div className="overlap-filter1">
-                                    <img className="icon-filter1" alt="Pin fill" src={pinImg} />
                                     <div className="text-filter1">Gender</div>
                                     <img className="vector" alt="Vector" src={vectorImg} />
                                 </div>
                                 <div className="overlap-filter2">
-                                    <img className="icon-filter2" alt="Date range fill" src={dateRangeImg} />
                                     <div className="text-filter2">Kategori Tiket</div>
                                     <img className="vector" alt="Vector" src={vectorImg} />
                                 </div>
