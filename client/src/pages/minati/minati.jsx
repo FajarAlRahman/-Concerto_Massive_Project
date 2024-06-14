@@ -2,10 +2,27 @@ import React from "react";
 import "./minati.css";
 import { useNavigate } from "react-router-dom";
 import Button from "./button";
+import axios from "axios";
 
 export const Minati = () => {
 
   const navigate = useNavigate();
+
+  const handleSubmit = async () => {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
+    try {
+      const response = await axios.post('http://localhost:3000/register', userData);
+      if (response.status === 200) {
+        localStorage.removeItem('userData');
+        navigate('../home');
+      } else {
+        console.log("Registrasi gagal");
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
 
   return (
     <>
@@ -60,8 +77,8 @@ export const Minati = () => {
             </div>
 
             <div className="btnNav">
-              <button type="button" className="btn btnSkip" onClick={() => navigate('../home')}>Lewati</button>
-              <button type="button" className="btn btnNext" onClick={() => navigate('../home')}>Lanjtukan</button>
+              <button type="button" className="btn btnSkip" onClick={handleSubmit}>Lewati</button>
+              <button type="button" className="btn btnNext" onClick={handleSubmit}>Lanjutkan</button>
             </div>
           </div>
         </div>
@@ -69,3 +86,5 @@ export const Minati = () => {
     </>
   );
 }
+
+export default Minati;
