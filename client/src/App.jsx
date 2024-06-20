@@ -9,6 +9,11 @@ import { HalamanKonser } from "./pages/halamanKonser/halamanKonser";
 import { Cariteman } from "./pages/cariTeman/cariTeman";
 import Navbar from "./components/common/Navbar/Navbar";
 import Pembayaran from "./pages/pembayaran/pembayaran";
+import { HomePenjual } from "./pages/homePenjual/homePenjual";
+import { Profile } from "./pages/profile/profile";
+import { Keranjang } from "./pages/keranjang/keranjang";
+import { Teman } from "./pages/teman/teman";
+import { Chat } from "./pages/chat/chat";
 // import { Pembayaran } from "./components/pembayaran/pembayaran";
 
 function App() {
@@ -27,6 +32,11 @@ function App() {
           <Route path="/cariTeman" element={<Cariteman />} />
           <Route path="/halamanKonser" element={<HalamanKonser />} />
           <Route path="/pembayaran" element={<Pembayaran />} />
+          <Route path="/homePenjual" element={<HomePenjual />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/keranjang" element={<Keranjang />} />
+          <Route path="/teman" element={<Teman />} />
+          <Route path="/chat" element={<Chat />} />
 
           {/* <Route path="/" element={<Pembayaran />} /> */}
       </Routes>
