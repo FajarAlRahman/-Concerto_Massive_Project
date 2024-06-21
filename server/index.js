@@ -3,14 +3,32 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const { testConnection } = require('./Database/db.js');
 const router = require('./Router/routes.js');
+const session = require('express-session');
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.APP_PORT || 3000;
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+}));
 app.use(express.json());
+
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'your_secret_key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}));
+
+// Middleware untuk memeriksa sesi di setiap permintaan
+app.use((req, res, next) => {
+    console.log("Session Middleware:", req.session);
+    next();
+});
+
 app.use(router);
 
 app.get('/', (req, res) => {

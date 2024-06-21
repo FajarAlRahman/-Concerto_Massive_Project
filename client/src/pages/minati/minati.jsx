@@ -45,7 +45,7 @@ export const Minati = () => {
       const response = await axios.post("http://localhost:3000/preferences", userPreferences);
       if (response.status === 200) {
         localStorage.removeItem("userId");
-        navigate("../home");
+        navigate("../login");
       } else {
         console.log("Registrasi gagal");
       }

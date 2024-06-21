@@ -12,7 +12,10 @@ export const Login = () => {
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post('http://localhost:3000/login', { email, password });
+            const response = await axios.post('http://localhost:3000/login', 
+                { email, password },
+                { withCredentials: true }
+            );
             console.log(response.data); // Debug response data
             if (response.data.msg === "Login Berhasil") {
                 sessionStorage.setItem('userId', response.data.userId);
