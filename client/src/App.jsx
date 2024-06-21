@@ -27,7 +27,7 @@ function App() {
         <Route path="/jelajah" element={<Jelajah />} />
         <Route path="/halamanKonser" element={<HalamanKonser />} />
         <Route path="/cariTeman" element={<Cariteman />} />
-        <Route path="/halamanKonser" element={<HalamanKonser />} />
+        <Route path="/halamanKonser/:id" element={<HalamanKonser />} />
         <Route path="/pembayaran" element={<Pembayaran />} />
         <Route path="/homePenjual" element={<HomePenjual />} />
         <Route path="/profile" element={<Profile />} />

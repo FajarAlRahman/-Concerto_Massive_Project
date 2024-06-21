@@ -34,7 +34,7 @@ const AppRouter = () => {
       <Route path="/home" element={<AppLayout><Home /></AppLayout>} />
       <Route path="/jelajah" element={<AppLayout><Jelajah /></AppLayout>} />
       <Route path="/cariTeman" element={<AppLayout><Cariteman /></AppLayout>} />
-      <Route path="/halamanKonser" element={<AppLayout><HalamanKonser /></AppLayout>} />
+      <Route path="/halamanKonser/:id" element={<AppLayout><HalamanKonser /></AppLayout>} />
       <Route path="/pembayaran" element={<AppLayout><Pembayaran /></AppLayout>} />
       <Route path="/homePenjual" element={<AppLayout><HomePenjual /></AppLayout>} />
       <Route path="/profile" element={<AppLayout><Profile /></AppLayout>} />
