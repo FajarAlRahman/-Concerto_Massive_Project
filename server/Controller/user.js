@@ -10,6 +10,7 @@ const Register = async (req, res) => {
     try {
         const userResult = await query("INSERT INTO users (full_name, email, phone_number, password, role_id) VALUES (?, ?, ?, ?, ?)", [full_name, email, phone_number, hashedPassword, 1]); // role_id 1 untuk buyer
         const userId = userResult.insertId;
+        console.log(`User registered: ${full_name} with ID: ${userId}`);
         res.json({ msg: "Registrasi Berhasil", userId });
     } catch (error) {
         console.log(error);
@@ -19,6 +20,7 @@ const Register = async (req, res) => {
 
 const SavePreferences = async (req, res) => {
     const { userId, genres, artists } = req.body;
+    console.log(`Saving preferences for User ID: ${userId}`);
     try {
         if (genres.length > 0) {
             for (const genre of genres) {
@@ -26,6 +28,7 @@ const SavePreferences = async (req, res) => {
                 const genreId = genreResult[0]?.id;
                 if (genreId) {
                     await query("INSERT INTO userpreferences (user_id, genre_id) VALUES (?, ?)", [userId, genreId]);
+                    console.log(`Genre preference saved: User ID: ${userId}, Genre ID: ${genreId}`);
                 }
             }
         }
@@ -36,6 +39,7 @@ const SavePreferences = async (req, res) => {
                 const artistId = artistResult[0]?.id;
                 if (artistId) {
                     await query("INSERT INTO userpreferences (user_id, artist_id) VALUES (?, ?)", [userId, artistId]);
+                    console.log(`Artist preference saved: User ID: ${userId}, Artist ID: ${artistId}`);
                 }
             }
         }
@@ -47,8 +51,33 @@ const SavePreferences = async (req, res) => {
     }
 };
 
+const Login = async (req, res) => {
+    const { email, password } = req.body;
+    console.log(`Login attempt for email: ${email}`);
+    try {
+        const userResult = await query("SELECT * FROM users WHERE email = ?", [email]);
+        if (userResult.length === 0) {
+            console.log(`Login failed: Email not found - ${email}`);
+            return res.status(400).json({ msg: "Email tidak ditemukan" });
+        }
+
+        const user = userResult[0];
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            console.log(`Login failed: Incorrect password for email - ${email}`);
+            return res.status(400).json({ msg: "Password salah" });
+        }
+
+        console.log(`Login successful: ${email}, User ID: ${user.id}`);
+        res.json({ userId: user.id, full_name: user.full_name, email: user.email, msg: "Login Berhasil" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Login Gagal" });
+    }
+};
+
 module.exports = {
     Register,
     SavePreferences,
+    Login,
 };
-

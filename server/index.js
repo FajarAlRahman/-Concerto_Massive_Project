@@ -13,7 +13,6 @@ app.use(cors());
 app.use(express.json());
 app.use(router);
 
-// Route untuk root path
 app.get('/', (req, res) => {
     res.send('Server is running');
 });
