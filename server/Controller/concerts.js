@@ -2,7 +2,13 @@ const { query } = require("../Database/db");
 
 const getAllConcerts = async (req, res) => {
     try {
-        const concerts = await query("SELECT * FROM concerts ORDER BY name ASC");
+        const concerts = await query(`
+            SELECT concerts.*, MAX(tickets.price) as max_price 
+            FROM concerts 
+            LEFT JOIN tickets ON concerts.id = tickets.concert_id 
+            GROUP BY concerts.id 
+            ORDER BY concerts.name ASC
+        `);
         res.json(concerts);
     } catch (error) {
         console.log(error);
@@ -33,9 +39,11 @@ const getRecommendedConcerts = async (req, res) => {
         console.log("Filtered Artist IDs:", artistIds);
 
         let queryStr = `
-            SELECT DISTINCT concerts.* FROM concerts
-            LEFT JOIN concert_genres ON concerts.id = concert_genres.concert_id
-            LEFT JOIN concert_artists ON concerts.id = concert_artists.concert_id
+            SELECT concerts.*, MAX(tickets.price) as max_price 
+            FROM concerts 
+            LEFT JOIN concert_genres ON concerts.id = concert_genres.concert_id 
+            LEFT JOIN concert_artists ON concerts.id = concert_artists.concert_id 
+            LEFT JOIN tickets ON concerts.id = tickets.concert_id 
             WHERE 1=1
         `;
 
@@ -47,7 +55,7 @@ const getRecommendedConcerts = async (req, res) => {
             queryStr += ` AND concert_artists.artist_id IN (${artistIds.join(",")})`;
         }
 
-        queryStr += " ORDER BY concerts.name ASC";
+        queryStr += " GROUP BY concerts.id ORDER BY concerts.name ASC";
 
         console.log("Query String:", queryStr);
 

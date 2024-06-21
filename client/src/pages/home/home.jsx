@@ -93,7 +93,7 @@ export const Home = () => {
                                     {concert.venue}
                                 </div>
                                 <div className="footer-konser">
-                                    <div className="harga-konser">Rp {concert.price ? concert.price.toLocaleString() : "N/A"}</div>
+                                    <div className="harga-konser">Rp {concert.max_price ? concert.max_price.toLocaleString() : "N/A"}</div>
                                     <button type="button" className="btn btn-konser" onClick={() => navigate(`../halamanKonser/${concert.id}`)}>Beli Tiket</button>
                                 </div>
                             </div>
@@ -121,7 +121,7 @@ export const Home = () => {
                                     {concert.venue}
                                 </div>
                                 <div className="footer-konser">
-                                    <div className="harga-konser">Rp {concert.price ? concert.price.toLocaleString() : "N/A"}</div>
+                                    <div className="harga-konser">Rp {concert.max_price ? concert.max_price.toLocaleString() : "N/A"}</div>
                                     <button type="button" className="btn btn-konser" onClick={() => navigate(`../halamanKonser/${concert.id}`)}>Beli Tiket</button>
                                 </div>
                             </div>
