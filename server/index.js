@@ -2,8 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const { testConnection } = require('./Database/db.js');
-const routerKonser = require('./Router/tambahKonser.js');
-const routerUser = require('./Router/tambahUser.js'); // Perbarui path impor ini
+const router = require('./Router/routes.js');
 
 dotenv.config();
 
@@ -12,8 +11,7 @@ const PORT = process.env.APP_PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(routerKonser);
-app.use(routerUser);
+app.use(router);
 
 // Route untuk root path
 app.get('/', (req, res) => {

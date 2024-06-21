@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { React, useState } from "react";
+import axios from 'axios'; // Import axios for making HTTP requests
 import "./daftar.css";
 
 import hideImg from "../../assets/img/View_hide_fill.png";
@@ -8,9 +9,9 @@ import background from "../../assets/img/Background.jpeg";
 export const Daftar = () => {
     const navigate = useNavigate();
     const [userData, setUserData] = useState({
-        nama_lengkap: '',
+        full_name: '',
         email: '',
-        nomer_whatsapp: '',
+        phone_number: '',
         password: '',
         konfirmasi_password: ''
     });
@@ -23,9 +24,18 @@ export const Daftar = () => {
         });
     };
 
-    const handleRegister = () => {
-        localStorage.setItem('userData', JSON.stringify(userData));
-        navigate('../minati');
+    const handleRegister = async () => {
+        try {
+            const response = await axios.post('http://localhost:3000/register', userData);
+            if (response.data.msg === "Registrasi Berhasil") {
+                localStorage.setItem('userId', response.data.userId);
+                navigate('../minati');
+            } else {
+                alert(response.data.msg);
+            }
+        } catch (error) {
+            console.error('There was an error!', error);
+        }
     };
 
     return (
@@ -41,7 +51,7 @@ export const Daftar = () => {
                 <input
                     type="text"
                     id="username"
-                    name="nama_lengkap"
+                    name="full_name"
                     className="input-field"
                     placeholder="Nama Lengkap"
                     onChange={handleChange}
@@ -59,7 +69,7 @@ export const Daftar = () => {
             <div className="input-container" style={{ top: 387 }}>
                 <input
                     type="text"
-                    name="nomer_whatsapp"
+                    name="phone_number"
                     className="input-field"
                     placeholder="Nomer WhatsApp"
                     onChange={handleChange}
