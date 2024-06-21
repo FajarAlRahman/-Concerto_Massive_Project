@@ -23,7 +23,6 @@ app.use(session({
     cookie: { secure: false }
 }));
 
-// Middleware untuk memeriksa sesi di setiap permintaan
 app.use((req, res, next) => {
     console.log("Session Middleware:", req.session);
     next();

@@ -12,6 +12,8 @@ export const HalamanKonser = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [concert, setConcert] = useState(null);
+    const [selectedTicket, setSelectedTicket] = useState(null);
+    const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
         const fetchConcert = async () => {
@@ -25,6 +27,17 @@ export const HalamanKonser = () => {
         };
         fetchConcert();
     }, [id]);
+
+    const handleTicketSelect = (ticket) => {
+        setSelectedTicket(ticket);
+        setTotalPrice(ticket.price);
+    };
+
+    const handlePesanSekarang = () => {
+        sessionStorage.setItem('selectedTicket', JSON.stringify(selectedTicket));
+        sessionStorage.setItem('selectedConcertId', id);
+        navigate('/pembayaran');
+    };
 
     if (!concert) return <p>Loading...</p>;
 
@@ -67,9 +80,20 @@ export const HalamanKonser = () => {
                             <div className="pilihan-tiket">
                                 <form action="">
                                     {concert.tickets && concert.tickets.map(ticket => (
-                                        <div className="form-check" key={ticket.id}>
-                                            <input className="form-check-input" type="radio" name="flexRadioDefault" id={`flexRadioDefault${ticket.id}`} />
-                                            <label className="form-check-label" htmlFor={`flexRadioDefault${ticket.id}`}>
+                                        <div 
+                                            className={`form-check ${selectedTicket && selectedTicket.id === ticket.id ? 'selected' : ''}`} 
+                                            key={ticket.id} 
+                                            onClick={() => handleTicketSelect(ticket)}
+                                        >
+                                            <input 
+                                                className="form-check-input" 
+                                                type="radio" 
+                                                name="ticketOption" 
+                                                id={`ticket${ticket.id}`} 
+                                                checked={selectedTicket && selectedTicket.id === ticket.id} 
+                                                onChange={() => handleTicketSelect(ticket)} 
+                                            />
+                                            <label className="form-check-label" htmlFor={`ticket${ticket.id}`}>
                                                 <div className="wrapper-label-tiket">
                                                     <h3 className="label-tiket">{ticket.type}</h3>
                                                     <h5 className="text-harga">Harga</h5>
@@ -81,13 +105,13 @@ export const HalamanKonser = () => {
                                     <div className="wrapper-tiket">
                                         <div className="total">
                                             <h5 className="label-total">Total</h5>
-                                            <h3 className="total-harga">Rp 0</h3>
+                                            <h3 className="total-harga">Rp {totalPrice.toLocaleString()}</h3>
                                         </div>
                                         <button type="button" className="btn btn-pilihan-keranjang" onClick={() => navigate('#')}>
                                             <img src={iconKeranjangPink} alt="" className="icon-btn-pilihan-tiket" />
                                             Beli Tiket
                                         </button>
-                                        <button type="button" className="btn btn-pilihan-beli" onClick={() => navigate('../pembayaran')}>Pesan Sekarang</button>
+                                        <button type="button" className="btn btn-pilihan-beli" onClick={handlePesanSekarang}>Pesan Sekarang</button>
                                     </div>
                                 </form>
                             </div>

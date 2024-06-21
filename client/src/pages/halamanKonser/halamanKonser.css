@@ -176,7 +176,7 @@
     height: auto;
 }
 
-.halamanKonser .form-check{
+.halamanKonser .form-check {
     width: auto;
     height: auto;
     margin-top: 20px;
@@ -186,9 +186,18 @@
     padding-right: 50px;
     border-radius: 40px;
     background-color: #1F1E95;
+    cursor: pointer;
 }
 
-.halamanKonser .form-check-label{
+.halamanKonser .form-check-input {
+    display: none; /* Sembunyikan input radio */
+}
+
+.halamanKonser .form-check.selected {
+    border: 2px solid #DF20A3; /* Warna border untuk card yang dipilih */
+}
+
+.halamanKonser .form-check-label {
     color: #FFFFFF;
     font-family: Quicksand;
     font-size: 20px;
