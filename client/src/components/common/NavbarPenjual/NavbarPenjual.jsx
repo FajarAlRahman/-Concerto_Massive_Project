@@ -4,6 +4,9 @@ import { BsMusicNoteBeamed, BsBell, BsGraphUp  } from "react-icons/bs";
 import "./navbarPenjual.css";
 
 import profileImg from '../../../assets/img/profile.jpeg';
+import { BsFillHouseAddFill } from "react-icons/bs";
+import { BsFillHouseDashFill } from "react-icons/bs";
+import { BsFillHouseFill } from "react-icons/bs";
 
 const NavbarPenjual = () => {
   return (
@@ -17,6 +20,12 @@ const NavbarPenjual = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
+                <Link className="nav-link" to="/homePenjual">
+                  <BsFillHouseFill className="nav-icon"/>
+                  Home
+                </Link>
+              </li>
+              <li className="nav-item">
                 <Link className="nav-link" to="/konserAnda">
                   <BsMusicNoteBeamed className="nav-icon"/>
                   Konser Anda
@@ -26,12 +35,6 @@ const NavbarPenjual = () => {
                 <Link className="nav-link" to="/pendapatan">
                   <BsGraphUp className="nav-icon"/>
                   Pendapatan
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/notifikasi">
-                  <BsBell className="nav-icon"/>
-                  Notifikasi
                 </Link>
               </li>
             </ul>

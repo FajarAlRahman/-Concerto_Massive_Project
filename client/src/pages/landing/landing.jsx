@@ -226,7 +226,7 @@ export const Landing = () => {
                     <div className="right-section">
                         <div className="label">Buat Acara Anda sendiri</div>
                         <p className="text-buat-konser">Daftarkan acara Anda gratis di sini dan nikmati keuntungannya</p>
-                        <button type="button" className="btn btn-buat-konser">Buat Konser</button>
+                        <button type="button" className="btn btn-buat-konser" onClick={() => navigate('../loginPenjual')}>Buat Konser</button>
                     </div>
                     {/* </div> */}
                 </section>
