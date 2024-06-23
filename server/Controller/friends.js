@@ -13,7 +13,7 @@ const getAllData = async (req, res) => {
             JOIN tickets tk ON ti.ticket_id = tk.id 
             JOIN concerts c ON tk.concert_id = c.id 
         `);
-        console.log(users);
+        //console.log(users);
         // console.log(concerts);
         // console.log(transactions);
 

@@ -10,12 +10,10 @@ import permataImg from '../../assets/img/permata.svg';
 import gopayImg from '../../assets/img/gopay.svg';
 import danaImg from '../../assets/img/dana.svg';
 import shopeeImg from '../../assets/img/shopeepay.svg';
-// import Modal from "../../components/ui/Modal";
 
 function Pembayaran() {
     const [user, setUser] = useState(null);
-    const [ticket, setTicket] = useState(null);
-    const [concert, setConcert] = useState(null);
+    const [cartItems, setCartItems] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
     const [selectedPayment, setSelectedPayment] = useState("Bank Transfer");
     const [/* isModalOpen */, setIsModalOpen] = useState(false);
@@ -31,47 +29,50 @@ function Pembayaran() {
                 console.error("Error fetching user data:", error);
             }
         };
-
-        const fetchConcertData = async () => {
-            const concertId = sessionStorage.getItem('selectedConcertId');
-            try {
-                const concertResponse = await axios.get(`http://localhost:3000/concerts/${concertId}`, { withCredentials: true });
-                setConcert(concertResponse.data);
-            } catch (error) {
-                console.error("Error fetching concert data:", error);
+    
+        const fetchCartItems = () => {
+            const isDirectPurchase = JSON.parse(sessionStorage.getItem('isDirectPurchase'));
+            if (isDirectPurchase) {
+                const selectedTicket = JSON.parse(sessionStorage.getItem('cartItems'))[0]; // Get the ticket item from session storage
+                setCartItems([selectedTicket]);
+                setTotalPrice(selectedTicket.price + 5000);
+            } else {
+                const items = JSON.parse(sessionStorage.getItem('cartItems'));
+                if (items) {
+                    setCartItems(items);
+                    const subtotal = items.reduce((total, item) => total + item.price * item.quantity, 0);
+                    setTotalPrice(subtotal + 5000);
+                }
             }
         };
-
-        const fetchTicketData = () => {
-            const selectedTicket = JSON.parse(sessionStorage.getItem('selectedTicket'));
-            if (selectedTicket) {
-                setTicket(selectedTicket);
-                setTotalPrice(selectedTicket.price + 5000); // Harga tiket ditambah biaya admin
-            }
-        };
-
+    
         fetchUserData();
-        fetchConcertData();
-        fetchTicketData();
-    }, []);
+        fetchCartItems();
+    }, []);      
 
     const handleBayarSekarang = async () => {
         if (!selectedPayment) {
             alert("Pilih metode pembayaran terlebih dahulu");
             return;
         }
+    
         setIsModalOpen(true);
-
+    
         try {
             const response = await axios.post('http://localhost:3000/saveTransaction', {
                 userId: user.id,
                 totalAmount: totalPrice,
-                ticketId: ticket.id,
-                quantity: 1
+                items: cartItems.map(item => ({
+                    ticketId: item.ticket_id,  // Ubah ke ticket_id
+                    quantity: item.quantity || 1
+                })),
+                isDirectPurchase: JSON.parse(sessionStorage.getItem('isDirectPurchase'))
             }, { withCredentials: true });
-
+    
             if (response.data.transactionId) {
                 setPaymentResult("Berhasil");
+                sessionStorage.removeItem('cartItems');
+                sessionStorage.removeItem('isDirectPurchase');
             } else {
                 setPaymentResult("Gagal");
             }
@@ -79,17 +80,11 @@ function Pembayaran() {
             console.error("Error saving transaction:", error);
             setPaymentResult("Gagal");
         }
-        
-        // Redirect to home page after payment
-        navigate('/');
+    
+        navigate('/home');
     };
 
-    // const handleModalClose = () => {
-    //     setIsModalOpen(false);
-    //     setPaymentResult(null);
-    // };
-
-    if (!user || !concert || !ticket) return <p>Loading...</p>;
+    if (!user || cartItems.length === 0) return <p>Loading...</p>;
 
     return (
         <div className="pembayaran">
@@ -137,14 +132,18 @@ function Pembayaran() {
                                     <p>{user.email}</p>
                                     <p>{user.phone_number}</p>
                                     <div className='devider' />
-                                    <div className='payment-flex'>
-                                        <p>{ticket.type} - {concert.name}</p>
-                                        <p>Rp {ticket.price.toLocaleString()}</p>
-                                    </div>
-                                    <div className='devider' />
+                                    {cartItems.map((item, index) => (
+                                        <div key={index}>
+                                            <div className='payment-flex'>
+                                                <p>{item.type} - {item.concert_name}</p>
+                                                <p>Rp {item.price.toLocaleString()}</p>
+                                            </div>
+                                            <div className='devider' />
+                                        </div>
+                                    ))}
                                     <div className='payment-flex'>
                                         <p>Sub Total</p>
-                                        <p>Rp {ticket.price.toLocaleString()}</p>
+                                        <p>Rp {(totalPrice - 5000).toLocaleString()}</p>
                                     </div>
                                     <div className='payment-flex'>
                                         <p>Biaya Admin</p>
@@ -169,23 +168,6 @@ function Pembayaran() {
                         </div>
                     </div>
                 </div>
-                {/* <Modal isOpen={isModalOpen} onClose={handleModalClose}>
-                    <div className='modal-body'>
-                        <div className='head-body'>
-                            <img src={iconKeranjangPink} alt="success" />
-                            <h2>{paymentResult === "Berhasil" ? "Transaksi Berhasil!" : "Transaksi Gagal"}</h2>
-                        </div>
-                        <div className='body-content'>
-                            <p>{paymentResult === "Berhasil" ? "Pembayaran berhasil dilakukan, cek email atau WhatsApp Anda untuk mendapatkan E-Tiket." : "Pembayaran gagal, silakan coba lagi."}</p>
-                        </div>
-                        <div className='body-end'>
-                            <p>Anda perlu teman nonton? Klik <a href='#'>di sini</a></p>
-                        </div>
-                        <div className='button-close'>
-                            <button onClick={handleModalClose}>Cek Detail</button>
-                        </div>
-                    </div>
-                </Modal> */}
             </div>
         </div>
     );

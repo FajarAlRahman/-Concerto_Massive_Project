@@ -18,10 +18,10 @@ const getAllConcerts = async (req, res) => {
 
 const getConcertById = async (req, res) => {
     const concertId = req.params.id;
-    console.log("Fetching details for concert ID:", concertId);
+    //console.log("Fetching details for concert ID:", concertId);
     try {
         const concert = await query(`
-            SELECT c.id, c.name, c.date, c.venue, c.description, g.name AS genre, a.name AS artist
+            SELECT c.id, c.name, c.date, c.venue, c.description, c.image_url, g.name AS genre, a.name AS artist
             FROM concerts c
             LEFT JOIN concert_genres cg ON c.id = cg.concert_id
             LEFT JOIN genres g ON cg.genre_id = g.id
@@ -30,14 +30,13 @@ const getConcertById = async (req, res) => {
             WHERE c.id = ?
         `, [concertId]);
 
+        //console.log(concert);
+
         const tickets = await query(`
             SELECT id, type, price
             FROM tickets
             WHERE concert_id = ?
         `, [concertId]);
-
-        console.log("Concert Details:", concert);
-        console.log("Concert Tickets:", tickets);
 
         if (concert.length > 0) {
             res.json({ ...concert[0], tickets });
@@ -51,9 +50,7 @@ const getConcertById = async (req, res) => {
 };
 
 const getRecommendedConcerts = async (req, res) => {
-    //console.log("Session during getRecommendedConcerts:", req.session);
     const userId = req.session.userId;
-    //console.log("User ID:", userId);
 
     if (!userId) {
         return res.status(400).json({ error: "User ID is required" });
@@ -63,14 +60,8 @@ const getRecommendedConcerts = async (req, res) => {
         const genres = await query("SELECT genre_id FROM userpreferences WHERE user_id = ? AND genre_id IS NOT NULL", [userId]);
         const artists = await query("SELECT artist_id FROM userpreferences WHERE user_id = ? AND artist_id IS NOT NULL", [userId]);
 
-        //console.log("Genres:", genres);
-        //console.log("Artists:", artists);
-
         const genreIds = genres.map(g => g.genre_id).filter(id => id !== null);
         const artistIds = artists.map(a => a.artist_id).filter(id => id !== null);
-
-        //console.log("Filtered Genre IDs:", genreIds);
-        //console.log("Filtered Artist IDs:", artistIds);
 
         let queryStr = `
             SELECT concerts.*, MAX(tickets.price) as max_price 
@@ -91,11 +82,7 @@ const getRecommendedConcerts = async (req, res) => {
 
         queryStr += " GROUP BY concerts.id ORDER BY concerts.name ASC";
 
-        //console.log("Query String:", queryStr);
-
         const recommendedConcerts = await query(queryStr);
-        //console.log("Recommended Concerts:", recommendedConcerts);
-
         res.json(recommendedConcerts);
     } catch (error) {
         console.log(error);
