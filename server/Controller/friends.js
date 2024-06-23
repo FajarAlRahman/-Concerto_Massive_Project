@@ -2,8 +2,9 @@
 const { query } = require("../Database/db");
 
 const getAllData = async (req, res) => {
+    const userId = req.session.userId; // Get the logged-in user's ID from session
     try {
-        const users = await query("SELECT * FROM users");
+        const users = await query("SELECT * FROM users WHERE id != ?", [userId]); // Exclude the logged-in user
         const concerts = await query("SELECT * FROM concerts");
         const transactions = await query(`
             SELECT t.*, c.name as concert_name, c.id as concert_id 
@@ -13,8 +14,8 @@ const getAllData = async (req, res) => {
             JOIN concerts c ON tk.concert_id = c.id 
         `);
         console.log(users);
-        console.log(concerts);
-        console.log(transactions);
+        // console.log(concerts);
+        // console.log(transactions);
 
         res.json({ users, concerts, transactions });
     } catch (error) {

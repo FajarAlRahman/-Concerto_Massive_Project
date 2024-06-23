@@ -46,7 +46,24 @@ const sendMessage = async (req, res) => {
     }
 };
 
+// Get user details by ID
+const getUserById = async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        const [user] = await query("SELECT * FROM users WHERE id = ?", [userId]);
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        res.json(user);
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        res.status(500).json({ error: "Failed to fetch user" });
+    }
+};
+
 module.exports = {
     getMessages,
-    sendMessage
+    sendMessage,
+    getUserById
 };

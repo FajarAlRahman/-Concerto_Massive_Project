@@ -10,6 +10,7 @@ const Chat = () => {
     const { friendId } = useParams();
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState("");
+    const [friendName, setFriendName] = useState("");
     const chatAreaRef = useRef(null);
     const senderId = parseInt(sessionStorage.getItem("userId"), 10); // Fetch sender_id from session storage
 
@@ -29,7 +30,19 @@ const Chat = () => {
             }
         };
 
+        const fetchFriendDetails = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3000/chat/user/${friendId}`, {
+                    withCredentials: true
+                });
+                setFriendName(response.data.full_name);
+            } catch (error) {
+                console.error("Error fetching user details:", error);
+            }
+        };
+
         fetchMessages();
+        fetchFriendDetails();
     }, [friendId, senderId]);
 
     const handleSend = async () => {
@@ -66,7 +79,7 @@ const Chat = () => {
                     <div className="detail-user">
                         <img src={profileImg} alt="" className="profile-user" />
                         <div className="status-user">
-                            <h3>Aya Dahlia</h3>
+                            <h3>{friendName}</h3>
                             <h5>• Online</h5>
                         </div>
                     </div>
