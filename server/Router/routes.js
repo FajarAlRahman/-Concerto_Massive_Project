@@ -1,4 +1,3 @@
-// server/Router/routes.js
 const express = require('express');
 const { Register, SavePreferences, Login } = require('../Controller/user');
 const { getGenres } = require('../Controller/genres');
@@ -7,6 +6,7 @@ const { getAllConcerts, getConcertById, getRecommendedConcerts } = require('../C
 const { getUserById, saveTransaction } = require('../Controller/transactions');
 const { getAllData, getFriends } = require('../Controller/friends');
 const { getMessages, sendMessage, getUserById: getChatUserById } = require('../Controller/chat');
+const { addToCart, getCartItems, deleteCartItem } = require('../Controller/keranjang');
 
 const router = express.Router();
 
@@ -22,6 +22,9 @@ router.get('/user', getUserById);
 router.post('/saveTransaction', saveTransaction);
 router.get('/alldata', getAllData);
 router.get('/friends', getFriends); 
+router.post('/cart', addToCart);
+router.get('/cart', getCartItems);
+router.delete('/cart/:id', deleteCartItem);  // Tambahkan route ini
 
 // Chat routes
 router.get('/chat/messages', getMessages);

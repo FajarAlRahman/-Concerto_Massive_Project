@@ -1,20 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 import { CgTrash } from "react-icons/cg";
 import { BsPlusCircleFill, BsDashCircleFill } from "react-icons/bs";
 import "./keranjang.css";
 
-import sampulKonser from "../../assets/img/sheilaon7.jpeg";
-
-export const Keranjang = () => {
+const Keranjang = () => {
     const navigate = useNavigate();
-    const [cartItems, setCartItems] = useState([
-        { id: 1, concert: "Sheila on 7", ticketType: "VVIP", price: 600000, quantity: 1, checked: false },
-        { id: 2, concert: "Sheila on 7", ticketType: "VVIP", price: 600000, quantity: 1, checked: false },
-        { id: 3, concert: "Sheila on 7", ticketType: "VVIP", price: 600000, quantity: 1, checked: false }
-    ]);  // data dummy
-
+    const [cartItems, setCartItems] = useState([]);
     const [selectAll, setSelectAll] = useState(false);
+
+    useEffect(() => {
+        const fetchCartItems = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/cart', { withCredentials: true });
+                setCartItems(response.data);
+            } catch (error) {
+                console.error("Error fetching cart items:", error);
+            }
+        };
+        fetchCartItems();
+    }, []);
 
     const handleCheckboxChange = (id) => {
         setCartItems(cartItems.map(item =>
@@ -28,8 +34,13 @@ export const Keranjang = () => {
         ));
     };
 
-    const handleDelete = (id) => {
-        setCartItems(cartItems.filter(item => item.id !== id));
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`http://localhost:3000/cart/${id}`, { withCredentials: true });
+            setCartItems(cartItems.filter(item => item.id !== id));
+        } catch (error) {
+            console.error('Error deleting item:', error);
+        }
     };
 
     const handleSelectAllChange = () => {
@@ -78,10 +89,10 @@ export const Keranjang = () => {
                                                 </label>
                                             </th>
                                             <td className="detail-item">
-                                                <img src={sampulKonser} alt="" className="sampul-konser" />
-                                                <h3 className="nama-konser">{item.concert}</h3>
+                                                <img src={`/assets/img/${item.image_url}`} alt="" className="sampul-konser" />
+                                                <h3 className="nama-konser">{item.concert_name}</h3>
                                             </td>
-                                            <td className="item-table">{item.ticketType}</td>
+                                            <td className="item-table">{item.ticket_type}</td>
                                             <td className="item-table">Rp {item.price.toLocaleString()}</td>
                                             <td className="item-table">
                                                 <button className="icon-table count"
@@ -137,3 +148,5 @@ export const Keranjang = () => {
         </>
     );
 };
+
+export default Keranjang;

@@ -12,9 +12,9 @@ import { HalamanKonser } from "../pages/halamanKonser/halamanKonser";
 import Pembayaran from "../pages/pembayaran/pembayaran";
 import { HomePenjual } from "../pages/homePenjual/homePenjual";
 import { Profile } from "../pages/profile/profile";
-import { Keranjang } from "../pages/keranjang/keranjang";
 import { Teman } from "../pages/teman/teman";
 import { Chat } from "../pages/chat/chat";
+import Keranjang from "../pages/keranjang/keranjang";
 
 const AppRouter = () => {
   return (

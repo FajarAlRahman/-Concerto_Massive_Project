@@ -38,6 +38,24 @@ const HalamanKonser = () => {
         navigate('/pembayaran');
     };
 
+    const handleAddToCart = async () => {
+        if (!selectedTicket) {
+            alert("Please select a ticket first");
+            return;
+        }
+
+        try {
+            const response = await axios.post('http://localhost:3000/cart', {
+                concertId: id,
+                ticketId: selectedTicket.id,
+                quantity: 1
+            }, { withCredentials: true });
+            navigate('/home');
+        } catch (error) {
+            console.error('Error adding to cart:', error);
+        }
+    };
+
     const loadConcertImage = (imageUrl) => {
         return `/assets/img/${imageUrl}`;
     };
@@ -109,7 +127,7 @@ const HalamanKonser = () => {
                                         <h5 className="label-total">Total</h5>
                                         <h3 className="total-harga">Rp {totalPrice.toLocaleString()}</h3>
                                     </div>
-                                    <button type="button" className="btn btn-pilihan-keranjang" onClick={() => navigate('#')}>
+                                    <button type="button" className="btn btn-pilihan-keranjang" onClick={handleAddToCart}>
                                         <img src={iconKeranjangPink} alt="" className="icon-btn-pilihan-tiket" />
                                         Beli Tiket
                                     </button>
