@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { FaStar } from "react-icons/fa";
@@ -7,12 +7,11 @@ import "./home.css";
 import banner1 from '../../assets/img/banner1.png';
 import pinImg from '../../assets/img/Pin_fill_konser.svg';
 import dateRangeImg from '../../assets/img/Date_range_fill_konser.svg';
-import sampulKonser from '../../assets/img/sheilaon7.jpeg';
 import person1 from '../../assets/img/person1.png';
 import person2 from '../../assets/img/person2.png';
 import profileTestimoni from '../../assets/img/profileTestimoni.jpg';
 
-export const Home = () => {
+const Home = () => {
     const [rating, setRating] = useState(5);
     const [concerts, setConcerts] = useState([]);
     const [recommendedConcerts, setRecommendedConcerts] = useState([]);
@@ -40,6 +39,10 @@ export const Home = () => {
         fetchConcerts();
         fetchRecommendedConcerts();
     }, []);
+
+    const loadConcertImage = (imageUrl) => {
+        return `/assets/img/${imageUrl}`;
+    };
 
     return (
         <div className="home">
@@ -82,7 +85,7 @@ export const Home = () => {
                     <div className="konser-list-horizontal">
                         {recommendedConcerts.length > 0 ? recommendedConcerts.map((concert, index) => (
                             <div key={index} className="konser">
-                                <img className="sampul" src={sampulKonser} alt="" />
+                                <img className="sampul" src={loadConcertImage(concert.image_url)} alt={concert.name} />
                                 <div className="label-konser">{concert.name}</div>
                                 <div className="tanggal-konser">
                                     <img className="icon-konser" alt="Date range fill" src={dateRangeImg} />
@@ -110,7 +113,7 @@ export const Home = () => {
                     <div className="konser-list-horizontal">
                         {concerts.length > 0 ? concerts.map((concert, index) => (
                             <div key={index} className="konser">
-                                <img className="sampul" src={sampulKonser} alt="" />
+                                <img className="sampul" src={loadConcertImage(concert.image_url)} alt={concert.name} />
                                 <div className="label-konser">{concert.name}</div>
                                 <div className="tanggal-konser">
                                     <img className="icon-konser" alt="Date range fill" src={dateRangeImg} />
