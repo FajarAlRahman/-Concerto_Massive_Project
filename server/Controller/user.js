@@ -70,7 +70,7 @@ const Login = async (req, res) => {
 
         req.session.userId = user.id; // Simpan userId ke session
         console.log(`Login successful: ${email}, User ID: ${user.id}`);
-        console.log("Session after login:", req.session); // Log session after login to verify
+        //console.log("Session after login:", req.session); // Log session after login to verify
 
         res.json({ userId: user.id, full_name: user.full_name, email: user.email, msg: "Login Berhasil" });
     } catch (error) {

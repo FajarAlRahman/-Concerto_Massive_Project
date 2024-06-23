@@ -16,7 +16,7 @@ export const Login = () => {
                 { email, password },
                 { withCredentials: true }
             );
-            console.log(response.data); // Debug response data
+            //console.log(response.data); // Debug response data
             if (response.data.msg === "Login Berhasil") {
                 sessionStorage.setItem('userId', response.data.userId);
                 sessionStorage.setItem('full_name', response.data.full_name);

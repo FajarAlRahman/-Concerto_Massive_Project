@@ -1,9 +1,11 @@
+// server/Router/routes.js
 const express = require('express');
 const { Register, SavePreferences, Login } = require('../Controller/user');
 const { getGenres } = require('../Controller/genres');
 const { getArtists } = require('../Controller/artists');
 const { getAllConcerts, getConcertById, getRecommendedConcerts } = require('../Controller/concerts');
 const { getUserById, saveTransaction } = require('../Controller/transactions');
+const { getAllData } = require('../Controller/friends');
 
 const router = express.Router();
 
@@ -17,5 +19,6 @@ router.get('/concerts/recommended', getRecommendedConcerts);
 router.get('/concerts/:id', getConcertById); 
 router.get('/user', getUserById);
 router.post('/saveTransaction', saveTransaction);
+router.get('/alldata', getAllData);
 
 module.exports = router;
