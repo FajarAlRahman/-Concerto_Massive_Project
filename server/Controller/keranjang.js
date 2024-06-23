@@ -81,4 +81,29 @@ const deleteCartItem = async (req, res) => {
     }
 };
 
-module.exports = { addToCart, getCartItems, deleteCartItem };
+const updateCartItemQuantity = async (req, res) => {
+    const { id } = req.params;
+    const { quantity } = req.body;
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.status(401).json({ error: "User not authenticated" });
+    }
+
+    try {
+        const cart = await query("SELECT * FROM carts WHERE user_id = ?", [userId]);
+
+        if (cart.length === 0) {
+            return res.status(400).json({ error: "Cart not found" });
+        }
+
+        await query("UPDATE cartitems SET quantity = ? WHERE id = ? AND cart_id = ?", [quantity, id, cart[0].id]);
+
+        res.status(200).json({ message: "Item quantity updated" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to update item quantity" });
+    }
+};
+
+module.exports = { addToCart, getCartItems, deleteCartItem, updateCartItemQuantity };

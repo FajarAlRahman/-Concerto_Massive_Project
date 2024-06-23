@@ -6,7 +6,7 @@ const { getAllConcerts, getConcertById, getRecommendedConcerts } = require('../C
 const { getUserById, saveTransaction } = require('../Controller/transactions');
 const { getAllData, getFriends } = require('../Controller/friends');
 const { getMessages, sendMessage, getUserById: getChatUserById } = require('../Controller/chat');
-const { addToCart, getCartItems, deleteCartItem } = require('../Controller/keranjang');
+const { addToCart, getCartItems, deleteCartItem, updateCartItemQuantity } = require('../Controller/keranjang');
 
 const router = express.Router();
 
@@ -24,11 +24,12 @@ router.get('/alldata', getAllData);
 router.get('/friends', getFriends); 
 router.post('/cart', addToCart);
 router.get('/cart', getCartItems);
-router.delete('/cart/:id', deleteCartItem);  // Tambahkan route ini
+router.delete('/cart/:id', deleteCartItem);
+router.put('/cart/:id', updateCartItemQuantity); 
 
 // Chat routes
 router.get('/chat/messages', getMessages);
 router.post('/chat/send', sendMessage);
-router.get('/chat/user/:userId', getChatUserById); // New route to get user details
+router.get('/chat/user/:userId', getChatUserById); 
 
 module.exports = router;

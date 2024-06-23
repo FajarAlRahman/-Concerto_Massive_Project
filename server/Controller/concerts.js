@@ -18,7 +18,7 @@ const getAllConcerts = async (req, res) => {
 
 const getConcertById = async (req, res) => {
     const concertId = req.params.id;
-    console.log("Fetching details for concert ID:", concertId);
+    //console.log("Fetching details for concert ID:", concertId);
     try {
         const concert = await query(`
             SELECT c.id, c.name, c.date, c.venue, c.description, c.image_url, g.name AS genre, a.name AS artist
@@ -30,7 +30,7 @@ const getConcertById = async (req, res) => {
             WHERE c.id = ?
         `, [concertId]);
 
-        console.log(concert);
+        //console.log(concert);
 
         const tickets = await query(`
             SELECT id, type, price

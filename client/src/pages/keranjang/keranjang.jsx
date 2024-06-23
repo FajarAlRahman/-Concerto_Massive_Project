@@ -28,10 +28,19 @@ const Keranjang = () => {
         ));
     };
 
-    const handleQuantityChange = (id, delta) => {
-        setCartItems(cartItems.map(item =>
-            item.id === id ? { ...item, quantity: item.quantity + delta } : item
-        ));
+    const handleQuantityChange = async (id, delta) => {
+        const item = cartItems.find(item => item.id === id);
+        const newQuantity = item.quantity + delta;
+        if (newQuantity < 1) return;
+
+        try {
+            await axios.put(`http://localhost:3000/cart/${id}`, { quantity: newQuantity }, { withCredentials: true });
+            setCartItems(cartItems.map(item =>
+                item.id === id ? { ...item, quantity: newQuantity } : item
+            ));
+        } catch (error) {
+            console.error('Error updating item quantity:', error);
+        }
     };
 
     const handleDelete = async (id) => {
@@ -47,6 +56,17 @@ const Keranjang = () => {
         const newSelectAll = !selectAll;
         setSelectAll(newSelectAll);
         setCartItems(cartItems.map(item => ({ ...item, checked: newSelectAll })));
+    };
+
+    const handleBuatPesanan = async () => {
+        const selectedItems = cartItems.filter(item => item.checked);
+        if (selectedItems.length === 0) {
+            alert('Tidak ada item yang dipilih');
+            return;
+        }
+
+        sessionStorage.setItem('cartItems', JSON.stringify(selectedItems));
+        navigate('../pembayaran');
     };
 
     const subtotal = cartItems.reduce((total, item) => total + (item.checked ? item.price * item.quantity : 0), 0);
@@ -138,7 +158,7 @@ const Keranjang = () => {
                                 <h2>Total Pembayaran : </h2>
                                 <div className="wrapper">
                                     <h2>Rp {total.toLocaleString()}</h2>
-                                    <button type="button" className="btn btn-beli" onClick={() => navigate('../pembayaran')} disabled={subtotal === 0}>Buat Pesanan</button>
+                                    <button type="button" className="btn btn-beli" onClick={handleBuatPesanan} disabled={subtotal === 0}>Buat Pesanan</button>
                                 </div>
                             </div>
                         </div>

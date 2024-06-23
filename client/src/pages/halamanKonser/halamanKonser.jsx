@@ -33,8 +33,23 @@ const HalamanKonser = () => {
     };
 
     const handlePesanSekarang = () => {
-        sessionStorage.setItem('selectedTicket', JSON.stringify(selectedTicket));
-        sessionStorage.setItem('selectedConcertId', id);
+        if (!selectedTicket) {
+            alert("Please select a ticket first");
+            return;
+        }
+    
+        const selectedTicketItem = {
+            id: selectedTicket.id,
+            ticket_id: selectedTicket.id, // Ensure we have ticket_id for consistency
+            concert_name: concert.name,
+            ticket_type: selectedTicket.type,
+            price: selectedTicket.price,
+            concert_id: concert.id, // Ensure we include concert_id
+            quantity: 1,
+        };
+    
+        sessionStorage.setItem('cartItems', JSON.stringify([selectedTicketItem]));
+        sessionStorage.setItem('isDirectPurchase', true);
         navigate('/pembayaran');
     };
 
