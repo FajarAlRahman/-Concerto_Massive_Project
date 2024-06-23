@@ -1,36 +1,52 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 import { BsArrowLeft, BsThreeDotsVertical, BsEmojiSmile, BsSend } from "react-icons/bs";
 import "./chat.css";
 import profileImg from "../../assets/img/profile.jpeg";
 
-export const Chat = () => {
+const Chat = () => {
     const navigate = useNavigate();
+    const { friendId } = useParams();
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState("");
     const chatAreaRef = useRef(null);
+    const senderId = parseInt(sessionStorage.getItem("userId"), 10); // Fetch sender_id from session storage
 
-    const handleSend = () => {
+    useEffect(() => {
+        const fetchMessages = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3000/chat/messages`, {
+                    params: {
+                        sender_id: senderId,
+                        receiver_id: friendId
+                    },
+                    withCredentials: true
+                });
+                setMessages(response.data);
+            } catch (error) {
+                console.error("Error fetching messages:", error);
+            }
+        };
+
+        fetchMessages();
+    }, [friendId, senderId]);
+
+    const handleSend = async () => {
         if (inputValue.trim() !== "") {
             const newMessage = {
-                id: messages.length + 1,
-                text: inputValue,
-                sender: "user",
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                sender_id: senderId,
+                receiver_id: parseInt(friendId, 10),
+                message: inputValue
             };
-            setMessages([...messages, newMessage]);
-            setInputValue("");
 
-            // Simulate receiving a reply from the other user
-            setTimeout(() => {
-                const replyMessage = {
-                    id: messages.length + 2,
-                    text: "This is a reply from the other user.",
-                    sender: "anotherUser",
-                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                };
-                setMessages(prevMessages => [...prevMessages, replyMessage]);
-            }, 1000);
+            try {
+                await axios.post('http://localhost:3000/chat/send', newMessage, { withCredentials: true });
+                setMessages([...messages, { ...newMessage, created_at: new Date().toISOString() }]);
+                setInputValue("");
+            } catch (error) {
+                console.error("Error sending message:", error);
+            }
         }
     };
 
@@ -64,12 +80,12 @@ export const Chat = () => {
                 <div className="container-fluid mx-5">
                     <div className="chat-area" ref={chatAreaRef}>
                         {messages.map(message => (
-                            <div key={message.id} className={message.sender === "user" ? "user-area" : "anotherUser-area"}>
-                                <div className={message.sender === "user" ? "box-user" : "box-anotherUser"}>
-                                    {message.sender === "anotherUser" && <img src={profileImg} alt="" className="profile-user" />}
-                                    <div className={message.sender === "user" ? "bubble-chat-user" : "bubble-chat-anotherUser"}>
-                                        <p>{message.text}</p>
-                                        <div className="waktu-chat">{message.time}</div>
+                            <div key={message.id || message.created_at} className={message.sender_id === senderId ? "user-area" : "anotherUser-area"}>
+                                <div className={message.sender_id === senderId ? "box-user" : "box-anotherUser"}>
+                                    {message.sender_id !== senderId && <img src={profileImg} alt="" className="profile-user" />}
+                                    <div className={message.sender_id === senderId ? "bubble-chat-user" : "bubble-chat-anotherUser"}>
+                                        <p>{message.message}</p>
+                                        <div className="waktu-chat">{new Date(message.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                                     </div>
                                 </div>
                             </div>
@@ -98,3 +114,5 @@ export const Chat = () => {
         </div>
     );
 };
+
+export default Chat;

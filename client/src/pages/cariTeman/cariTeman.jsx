@@ -1,11 +1,11 @@
 // client/src/pages/cariTeman/cariTeman.jsx
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import "./cariTeman.css";
 
 import btnTemanImg from '../../assets/img/User_alt_fill_black.svg';
 import profileTeman from '../../assets/img/user1.jpeg';
-import vectorImg from '../../assets/img/Vector.svg';
 import groubAddImg from '../../assets/img/group_add_fil.svg';
 
 const CariTeman = () => {
@@ -14,13 +14,12 @@ const CariTeman = () => {
     const [transactions, setTransactions] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [selectedConcert, setSelectedConcert] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:3000/alldata', { withCredentials: true });
-
-                console.log("Data fetched:", response.data);
 
                 setUsers(response.data.users);
                 setConcerts(response.data.concerts);
@@ -72,7 +71,7 @@ const CariTeman = () => {
 
                     <div className="list-teman">
                         {filteredUsers.map(user => (
-                            <div key={user.id} className="box-teman">
+                            <div key={user.id} className="box-teman" onClick={() => navigate(`/chat/${user.id}`)}>
                                 <img src={profileTeman} alt="" className="profile-teman" />
                                 <div className="box-detail-teman">
                                     <div className="wrapper-username">
