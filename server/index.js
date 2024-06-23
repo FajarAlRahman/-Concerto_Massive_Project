@@ -1,19 +1,40 @@
-const express =  require('express')
-const cors =  require('cors')
-const dotenv =  require('dotenv')
-const {testConnection} = require('./Database/db.js')
-const routerKonser = require('./Router/tambahKonser.js')
-const routerUser = require('./Router/tambahUser.js')
+const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const { testConnection } = require('./Database/db.js');
+const router = require('./Router/routes.js');
+const session = require('express-session');
 
 dotenv.config();
+
 const app = express();
+const PORT = process.env.APP_PORT || 3000;
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+}));
 app.use(express.json());
-app.use(routerKonser);
-app.use(routerUser);
 
-app.listen(process.env.APP_PORT, async () => {
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'your_secret_key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}));
+
+app.use((req, res, next) => {
+    console.log("Session Middleware:", req.session);
+    next();
+});
+
+app.use(router);
+
+app.get('/', (req, res) => {
+    res.send('Server is running');
+});
+
+app.listen(PORT, async () => {
     await testConnection();
-    console.log(`http://localhost:${process.env.APP_PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });

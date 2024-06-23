@@ -146,16 +146,19 @@
     width: 100%;
 }
 
+/* cariteman.css */
+
+/* General styles for the filter container */
 .cariteman .filter {
     height: 46px;
     display: flex;
-    /* width: 500px; */
     margin-top: 30px;
     margin-bottom: 30px;
     width: 100%;
     align-items: center;
 }
 
+/* Styles for the first filter */
 .cariteman .overlap-filter1 {
     height: 46px;
     position: relative; 
@@ -166,22 +169,41 @@
     padding: 12px;
     align-items: center;
     margin-right: 15px;
-    /* top : 10px; */
-    
 }
+
+/* Styles for the second filter (dropdown) */
 .cariteman .overlap-filter2 {
     height: 46px;
     position: relative; 
     width: 220px;
     background-color: #1F1E95;
+    color: #fff;
     border-radius: 30px;
     display: flex;
-    padding: 12px;
     align-items: center;
     margin-right: 15px;
-    /* left : 185px; */
-    /* top : -35px; */
 }
+
+/* Styles for the select element inside the second filter */
+.cariteman .overlap-filter2 select {
+    background-color: #fff; /* Background color for the dropdown */
+    color: #fff; /* Text color for the dropdown */
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Styles for the options inside the dropdown */
+.cariteman .overlap-filter2 option {
+    background-color: #1F1E95; /* Background color for the options */
+    color: #fff; /* Text color for the options */
+}
+
 
 .cariteman .wrapper-navigasi-teman{
     display: flex;
