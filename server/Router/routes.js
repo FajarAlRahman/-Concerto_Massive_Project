@@ -5,7 +5,7 @@ const { getGenres } = require('../Controller/genres');
 const { getArtists } = require('../Controller/artists');
 const { getAllConcerts, getConcertById, getRecommendedConcerts } = require('../Controller/concerts');
 const { getUserById, saveTransaction } = require('../Controller/transactions');
-const { getAllData } = require('../Controller/friends');
+const { getAllData, getFriends } = require('../Controller/friends');
 const { getMessages, sendMessage, getUserById: getChatUserById } = require('../Controller/chat');
 
 const router = express.Router();
@@ -21,6 +21,7 @@ router.get('/concerts/:id', getConcertById);
 router.get('/user', getUserById);
 router.post('/saveTransaction', saveTransaction);
 router.get('/alldata', getAllData);
+router.get('/friends', getFriends); 
 
 // Chat routes
 router.get('/chat/messages', getMessages);

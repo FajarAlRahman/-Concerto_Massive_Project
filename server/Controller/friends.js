@@ -24,6 +24,24 @@ const getAllData = async (req, res) => {
     }
 };
 
+const getFriends = async (req, res) => {
+    const userId = req.session.userId; // Get the logged-in user's ID from session
+    try {
+        const friends = await query(`
+            SELECT DISTINCT u.id, u.full_name 
+            FROM users u
+            JOIN chatmessages cm ON (u.id = cm.sender_id OR u.id = cm.receiver_id)
+            WHERE (cm.sender_id = ? OR cm.receiver_id = ?) AND u.id != ?
+        `, [userId, userId, userId]);
+
+        res.json(friends);
+    } catch (error) {
+        console.error("Error fetching friends:", error);
+        res.status(500).json({ error: "Failed to fetch friends" });
+    }
+};
+
 module.exports = {
-    getAllData
+    getAllData,
+    getFriends
 };
