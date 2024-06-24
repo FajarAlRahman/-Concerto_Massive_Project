@@ -279,7 +279,7 @@ export const BuatKonserPenjual = () => {
 
                                                 <div className="form-btn-footer">
                                                     <button type="button" className="btn btn-kembali" onClick={() => setStep(step - 1)}>Kembali</button>
-                                                    <button type="submit" className="btn btn-simpan">Simpan dan Lanjutkan</button>
+                                                    <button type="submit" className="btn btn-simpan" onClick={() => navigate('../konserAnda')}>Simpan dan Lanjutkan</button>
                                                 </div>
                                             </form>
                                         </div>
