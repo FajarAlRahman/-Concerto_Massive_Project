@@ -15,6 +15,7 @@ import { Profile } from "../pages/profile/profile";
 import Keranjang from "../pages/keranjang/keranjang";
 import { Teman } from "../pages/teman/teman";
 import Chat from "../pages/chat/chat";
+import { LoginPenjual } from "../pages/loginPenjual/loginPenjual";
 
 const AppRouter = () => {
   return (
@@ -25,6 +26,9 @@ const AppRouter = () => {
       <Route path="/daftar" element={<AuthLayout><Daftar /></AuthLayout>} />
       <Route path="/minati" element={<AuthLayout><Minati /></AuthLayout>} />
       <Route path="/chat/:friendId" element={<AuthLayout><Chat /></AuthLayout>} />
+
+      {/* Penjual with AuthLayout */}
+      <Route path="/loginPenjual" element={<AuthLayout><LoginPenjual /></AuthLayout>} />
 
       {/* Routes with AppLayout */}
       <Route path="/home" element={<AppLayout><Home /></AppLayout>} />

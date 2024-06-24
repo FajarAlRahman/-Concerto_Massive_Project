@@ -15,6 +15,7 @@ import { Profile } from "../pages/profile/profile";
 import { Teman } from "../pages/teman/teman";
 import { Chat } from "../pages/chat/chat";
 import Keranjang from "../pages/keranjang/keranjang";
+import { LoginPenjual } from "./pages/loginPenjual/loginPenjual";
 
 const AppRouter = () => {
   return (
@@ -26,16 +27,22 @@ const AppRouter = () => {
       <Route path="/minati" element={<AuthLayout><Minati /></AuthLayout>} />
       <Route path="/chat" element={<AuthLayout><Chat /></AuthLayout>} />
 
+      {/* Penjual AuthLayout*/}
+      <Route path="/loginPenjual" element={<AuthLayout><LoginPenjual /></AuthLayout>} />
+
       {/* Routes with AppLayout */}
       <Route path="/home" element={<AppLayout><Home /></AppLayout>} />
       <Route path="/jelajah" element={<AppLayout><Jelajah /></AppLayout>} />
       <Route path="/cariTeman" element={<AppLayout><CariTeman /></AppLayout>} />
       <Route path="/halamanKonser/:id" element={<AppLayout><HalamanKonser /></AppLayout>} />
       <Route path="/pembayaran" element={<AppLayout><Pembayaran /></AppLayout>} />
-      <Route path="/homePenjual" element={<AppLayout><HomePenjual /></AppLayout>} />
       <Route path="/profile" element={<AppLayout><Profile /></AppLayout>} />
       <Route path="/keranjang" element={<AppLayout><Keranjang /></AppLayout>} />
       <Route path="/teman" element={<AppLayout><Teman /></AppLayout>} />
+
+      {/* Penjual */}
+      <Route path="/homePenjual" element={<AppLayout><HomePenjual /></AppLayout>} />
+
     </Routes>
   );
 };
