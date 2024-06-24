@@ -128,7 +128,7 @@ body {
 .home .spotlight {
     display: flex;
     width: auto;
-    height: 550px;
+    height: 600px;
     margin-top: 33px;
     margin-bottom: 74px;
     border-radius: 20px;
@@ -137,10 +137,10 @@ body {
 
 .home .spotlight .container-fluid {
     display: flex;
-    padding-left: 60px;
-    padding-right: 60px;
-    padding-top: 38px;
-    padding-bottom: 38px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     background-color: #1F1E95;
     border-radius: 20px;
 }
@@ -156,7 +156,7 @@ body {
     width: auto;
     height: auto;
     position: absolute;
-    top: 485px;
+    top: 600px;
     /* background-color: #1F1E95; */
 }
 
@@ -215,7 +215,7 @@ body {
     overflow-x: auto;
     overscroll-behavior-inline: contain;
     padding-bottom: 20px;
-
+    padding-left: 10px;
 }
 
 .home .rekomendasi .konser-list-horizontal::-webkit-scrollbar {
@@ -277,7 +277,7 @@ body {
     overflow-x: auto;
     overscroll-behavior-inline: contain;
     padding-bottom: 20px;
-
+    padding-left: 10px;
 }
 
 .home .konser-terbaru .konser-list-horizontal::-webkit-scrollbar {
@@ -299,9 +299,11 @@ body {
 
 
 .home .konser-list-horizontal .konser {
+    display: flex;
+    flex-direction: column;
     background-color: #FFFFFF;
     width: 295px;
-    height: auto;
+    height: 420px;
     border-radius: 20px;
     padding: 15px;
     filter: drop-shadow(0px 7px 5px rgba(0, 0, 0, 0.25));
@@ -364,15 +366,23 @@ body {
 .home .konser .footer-konser {
     display: flex;
     width: auto;
-    height: auto;
-    align-items: center;
+    height: 100%;
+    margin-bottom: 0px;
+    align-items: flex-end;
 }
 
+.home .konser .footer-wrapper{
+    display: flex;
+    width: 100%;
+    height: auto;
+}
 .home .konser .harga-konser {
     color: #DF20A3;
     font-size: 20px;
     font-family: 'Quicksand';
     font-weight: 700;
+    justify-content: flex-end;
+
 }
 
 .home .konser .btn-konser {
@@ -382,6 +392,9 @@ body {
     font-family: 'Quicksand';
     font-weight: 700;
     border-radius: 15px;
+    height: 50px;
+    justify-content: flex-end;
+
 }
 
 .home .konser .btn-konser:hover {
@@ -417,13 +430,13 @@ body {
     width: 562px;
     height: 396px;
     position: absolute;
-    top: 114.3rem;
+    top: 125.4rem;
 }
 
 .home .person2-buat-konser {
     width: 494px;
     height: 344px;
-    top: 117.1rem;
+    top: 128.2rem;
     left: 8rem;
     position: absolute;
 

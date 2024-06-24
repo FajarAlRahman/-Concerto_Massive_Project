@@ -4,7 +4,13 @@ import axios from 'axios';
 import { FaStar } from "react-icons/fa";
 import "./home.css";
 
-import banner1 from '../../assets/img/banner1.png';
+import banner1 from '../../assets/img/banner-1.png';
+import banner2 from '../../assets/img/banner-2.png';
+import banner3 from '../../assets/img/banner-3.png';
+import banner4 from '../../assets/img/banner-4.png';
+import banner5 from '../../assets/img/banner-5.png';
+import banner6 from '../../assets/img/banner-6.png';
+
 import pinImg from '../../assets/img/Pin_fill_konser.svg';
 import dateRangeImg from '../../assets/img/Date_range_fill_konser.svg';
 import person1 from '../../assets/img/person1.png';
@@ -18,6 +24,23 @@ const Home = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        const konserListHorizontals = document.querySelectorAll('.konser-list-horizontal');
+
+        const handleWheelEvent = (e) => {
+            if (e.deltaY !== 0) {
+                e.preventDefault();
+                if (e.deltaY > 0) {
+                    e.currentTarget.scrollLeft += 50;
+                } else {
+                    e.currentTarget.scrollLeft -= 50;
+                }
+            }
+        };
+
+        konserListHorizontals.forEach(konserListHorizontal => {
+            konserListHorizontal.addEventListener('wheel', handleWheelEvent, { passive: false });
+        });
+
         const fetchConcerts = async () => {
             try {
                 const response = await axios.get('http://localhost:3000/concerts', { withCredentials: true });
@@ -38,6 +61,12 @@ const Home = () => {
 
         fetchConcerts();
         fetchRecommendedConcerts();
+
+        return () => {
+            konserListHorizontals.forEach(konserListHorizontal => {
+                konserListHorizontal.removeEventListener('wheel', handleWheelEvent);
+            });
+        };
     }, []);
 
     const loadConcertImage = (imageUrl) => {
@@ -53,16 +82,29 @@ const Home = () => {
                             <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
                             <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
                             <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="5" aria-label="Slide 6"></button>
+
                         </div>
                         <div className="carousel-inner">
                             <div className="carousel-item active" data-bs-interval="1000">
                                 <img src={banner1} className="img-banner d-block w-100" alt="..." />
                             </div>
                             <div className="carousel-item" data-bs-interval="2000">
-                                <img src={banner1} className="d-block w-100" alt="..." />
+                                <img src={banner2} className="d-block w-100" alt="..." />
                             </div>
                             <div className="carousel-item" data-bs-interval="2000">
-                                <img src={banner1} className="d-block w-100" alt="..." />
+                                <img src={banner3} className="d-block w-100" alt="..." />
+                            </div>
+                            <div className="carousel-item" data-bs-interval="2000">
+                                <img src={banner4} className="d-block w-100" alt="..." />
+                            </div>
+                            <div className="carousel-item" data-bs-interval="2000">
+                                <img src={banner5} className="d-block w-100" alt="..." />
+                            </div>
+                            <div className="carousel-item" data-bs-interval="2000">
+                                <img src={banner6} className="d-block w-100" alt="..." />
                             </div>
                         </div>
                         <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
@@ -96,9 +138,12 @@ const Home = () => {
                                     {concert.venue}
                                 </div>
                                 <div className="footer-konser">
-                                    <div className="harga-konser">Rp {concert.max_price ? concert.max_price.toLocaleString() : "N/A"}</div>
-                                    <button type="button" className="btn btn-konser" onClick={() => navigate(`../halamanKonser/${concert.id}`)}>Beli Tiket</button>
+                                    <div className="footer-wrapper">
+                                        <div className="harga-konser">Rp {concert.max_price ? concert.max_price.toLocaleString() : "N/A"}</div>
+                                        <button type="button" className="btn btn-konser" onClick={() => navigate(`../halamanKonser/${concert.id}`)}>Beli Tiket</button>
+                                    </div>
                                 </div>
+
                             </div>
                         )) : <p>Loading...</p>}
                     </div>
@@ -124,8 +169,10 @@ const Home = () => {
                                     {concert.venue}
                                 </div>
                                 <div className="footer-konser">
-                                    <div className="harga-konser">Rp {concert.max_price ? concert.max_price.toLocaleString() : "N/A"}</div>
-                                    <button type="button" className="btn btn-konser" onClick={() => navigate(`../halamanKonser/${concert.id}`)}>Beli Tiket</button>
+                                    <div className="footer-wrapper">
+                                        <div className="harga-konser">Rp {concert.max_price ? concert.max_price.toLocaleString() : "N/A"}</div>
+                                        <button type="button" className="btn btn-konser" onClick={() => navigate(`../halamanKonser/${concert.id}`)}>Beli Tiket</button>
+                                    </div>
                                 </div>
                             </div>
                         )) : <p>Loading...</p>}
