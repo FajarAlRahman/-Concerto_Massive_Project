@@ -4,12 +4,12 @@ import axios from 'axios';
 import { FaStar } from "react-icons/fa";
 import "./home.css";
 
-import banner1 from '../../assets/img/banner-1.png';
-import banner2 from '../../assets/img/banner-2.png';
-import banner3 from '../../assets/img/banner-3.png';
-import banner4 from '../../assets/img/banner-4.png';
-import banner5 from '../../assets/img/banner-5.png';
-import banner6 from '../../assets/img/banner-6.png';
+import banner1 from '../../assets/img/spotlight-1.png';
+import banner2 from '../../assets/img/spotlight-2.png';
+import banner3 from '../../assets/img/spotlight-3.png';
+import banner4 from '../../assets/img/spotlight-4.png';
+import banner5 from '../../assets/img/spotlight-5.png';
+import banner6 from '../../assets/img/spotlight-6.png';
 
 import pinImg from '../../assets/img/Pin_fill_konser.svg';
 import dateRangeImg from '../../assets/img/Date_range_fill_konser.svg';
@@ -76,7 +76,7 @@ const Home = () => {
     return (
         <div className="home">
             <div className="spotlight">
-                <div className="container-fluid mx-5">
+                {/* <div className="container-fluid mx-5"> */}
                     <div id="carouselExampleDark" className="carousel carousel-dark slide">
                         <div className="carousel-indicators">
                             <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
@@ -116,7 +116,7 @@ const Home = () => {
                             <span className="visually-hidden">Next</span>
                         </button>
                     </div>
-                </div>
+                {/* </div> */}
             </div>
 
             <div className="rekomendasi">

@@ -7,11 +7,12 @@ import searchImg from '../../../assets/img/Search.svg';
 import groubAddImg from '../../../assets/img/group_add_fil.svg';
 import basketImg from '../../../assets/img/Basket_alt_3_fill.svg';
 import profileImg from '../../../assets/img/profile.jpeg';
+import { BsFillHouseDoorFill } from "react-icons/bs";
 
 const Navbar = () => {
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-dar" >
+      <nav className="navbar navbar-expand-lg bg-dar nav-pembeli" >
         <div className="container-fluid mx-5">
           <Link className="navbar-brand" to="/home">concerto.</Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,6 +28,12 @@ const Navbar = () => {
                   <input type="search" className="form-control" placeholder="Cari Konser" aria-label="search" aria-describedby="addon-wrapping" />
                 </div>
               </form>
+              <li className="nav-item">
+                <Link className="nav-link" to="/home">
+                  <BsFillHouseDoorFill className="menu-icon" alt="menu-icon" />
+                  Home
+                </Link>
+              </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/jelajah">
                   <img className="menu-icon" alt="menu-icon" src={compassImg} />

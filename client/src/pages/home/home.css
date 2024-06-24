@@ -128,27 +128,16 @@ body {
 .home .spotlight {
     display: flex;
     width: auto;
-    height: 600px;
-    margin-top: 33px;
+    height: 490px;
+    margin-top: 30px;
     margin-bottom: 74px;
     border-radius: 20px;
-
-}
-
-.home .spotlight .container-fluid {
-    display: flex;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background-color: #1F1E95;
-    border-radius: 20px;
+    margin-inline: 60px;
+    border: 5px #1c1a7f solid;
 }
 
 .home .carousel-item img{
     border-radius: 20px;
-    /* width: 1270px;
-    height: 423px; */
 }
 
 .home .carousel-indicators {
@@ -156,7 +145,7 @@ body {
     width: auto;
     height: auto;
     position: absolute;
-    top: 600px;
+    top: 505px;
     /* background-color: #1F1E95; */
 }
 
@@ -375,7 +364,9 @@ body {
     display: flex;
     width: 100%;
     height: auto;
+    align-items: center;
 }
+
 .home .konser .harga-konser {
     color: #DF20A3;
     font-size: 20px;
@@ -394,7 +385,6 @@ body {
     border-radius: 15px;
     height: 50px;
     justify-content: flex-end;
-
 }
 
 .home .konser .btn-konser:hover {
@@ -430,13 +420,13 @@ body {
     width: 562px;
     height: 396px;
     position: absolute;
-    top: 125.4rem;
+    top: 118.35rem;
 }
 
 .home .person2-buat-konser {
     width: 494px;
     height: 344px;
-    top: 128.2rem;
+    top: 121.1rem;
     left: 8rem;
     position: absolute;
 
