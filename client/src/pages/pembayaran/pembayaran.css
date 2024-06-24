@@ -114,8 +114,9 @@
 
 .pembayaran .header {
     padding: 0;
-    width: 344px;
-    height: 57px;
+    width: auto;
+    height: auto;
+    margin-bottom: 5px;
 }
 
 .pembayaran .header h1 {
@@ -225,7 +226,8 @@
 }
 
 .pembayaran .card-payment.selected {
-    box-shadow: 4px 4px 9px 0px #866BC9;
+    box-shadow: 4px 4px 9px 0px #DF20A3;
+    border: 2px #DF20A3 solid;
     /* Change shadow color when selected */
 }
 
@@ -234,11 +236,14 @@
     font-family: Quicksand;
     font-size: 28px;
     font-weight: 700;
-    width: 700px;
+    width: auto;
     height: auto;
     margin-right: 30px;
+    justify-content: flex-start;
 }
 .pembayaran .grid-payment-left .paymentImg{
+    display: flex;
+    justify-content: flex-end;
     height: 50px;
     width: 130px;
 }
@@ -319,6 +324,11 @@
     cursor: pointer;
 }
 
+.pembayaran .payment-button button:hover {
+    background-color: #c91d92;
+}
+
+
 .pembayaran .payment-result {
     margin: 40px auto 0;
     padding: 40px 50px;
@@ -387,3 +397,5 @@
     border: none;
     cursor: pointer;
 }
+
+
