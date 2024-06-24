@@ -1,5 +1,6 @@
 // server/Controller/chat.js
 const { query } = require("../Database/db");
+//halo
 
 // Get chat messages between two users
 const getMessages = async (req, res) => {
