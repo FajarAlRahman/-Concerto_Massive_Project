@@ -189,12 +189,22 @@
     cursor: pointer;
 }
 
-.halamanKonser .form-check-input {
-    display: none; /* Sembunyikan input radio */
+.halamanKonser .form-check-input{
+    background-color: #FFFFFF;
+}
+
+.halamanKonser .form-check-input:checked {
+    background-color: #DF20A3;
+}
+
+.halamanKonser .form-check-input:checked::before {
+    background-color: #DF20A3;
+    border-color: #DF20A3; /* Match the border color */
 }
 
 .halamanKonser .form-check.selected {
-    border: 2px solid #DF20A3; /* Warna border untuk card yang dipilih */
+    border: 5px solid #DF20A3; /* Warna border untuk card yang dipilih */
+    filter: drop-shadow(0px 7px 5px rgba(0, 0, 0, 0.25));
 }
 
 .halamanKonser .form-check-label {
@@ -281,3 +291,73 @@
 .halamanKonser .btn-pilihan-beli:hover {
     background-color: #c91d92;
 }
+
+
+/* modal */
+.title-modal-hlm-konser {
+    color: #000;
+    font-size: 30px;
+    font-family: 'Quicksand';
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.data-diri-modal, .item-tiket-modal{
+    color: #FFFFFF;
+    font-size: 10px;
+    font-family: 'Quicksand';
+    font-weight: 500;
+    margin-bottom: 17px;
+    background-color: #1F1E95;
+    border-radius: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.data-diri-modal span, .item-tiket-modal span{
+    font-weight: 700;
+}
+
+
+.btn-wrapper-modal{
+    display: flex;
+    width: 100%;
+    height: auto;
+    justify-content: space-between;
+}
+
+.btn-close-modal{
+    border: 2px solid #DF20A3;
+    background-color: #FFFFFF;
+    color: #DF20A3;
+    font-family: Quicksand;
+    font-size: 20px;
+    font-weight: 700;
+    margin-right: 30px;
+    width: 180px;
+    height: 50px;
+    border-radius: 15px;
+}
+
+.btn-close-modal:hover{
+    color: #DF20A3;
+    border: 2px solid #DF20A3;
+    background-color: hsl(0, 0%, 90%);
+}
+
+.btn-lanjut-modal{
+    background-color: #DF20A3;
+    color: #FFFFFF;
+    font-size: 20px;
+    font-family: 'Quicksand';
+    font-weight: 700;
+    border-radius: 15px;
+    width: 180px;
+    height: 50px;
+}
+
+.btn-lanjut-modal:hover{
+    color: #FFFFFF;
+    background-color: #c91d92;
+}
+
