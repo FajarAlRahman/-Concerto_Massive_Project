@@ -47,9 +47,9 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <div className="profile">
-            <Link className="nav-link mx-0" to="/login">
-              <img className="menu-profile" alt="menu-icon" src={profileImg} />
+          <div className="profile-nav">
+            <Link className="nav-link mx-0" to="/profile">
+              <img className="menu-profile-nav" alt="menu-icon" src={profileImg} />
             </Link>
           </div>
         </div>
