@@ -16,6 +16,8 @@ import { Teman } from "../pages/teman/teman";
 import { Chat } from "../pages/chat/chat";
 import Keranjang from "../pages/keranjang/keranjang";
 import { LoginPenjual } from "./pages/loginPenjual/loginPenjual";
+import DaftarPenjual from "./pages/daftarPenjual/daftarPenjual";
+import AppLayoutPenjual from "./layout/app-layout-penjual";
 
 const AppRouter = () => {
   return (
@@ -29,6 +31,7 @@ const AppRouter = () => {
 
       {/* Penjual AuthLayout*/}
       <Route path="/loginPenjual" element={<AuthLayout><LoginPenjual /></AuthLayout>} />
+      <Route path="/daftarPenjual" element={<AuthLayout><DaftarPenjual /></AuthLayout>} />
 
       {/* Routes with AppLayout */}
       <Route path="/home" element={<AppLayout><Home /></AppLayout>} />
@@ -41,7 +44,8 @@ const AppRouter = () => {
       <Route path="/teman" element={<AppLayout><Teman /></AppLayout>} />
 
       {/* Penjual */}
-      <Route path="/homePenjual" element={<AppLayout><HomePenjual /></AppLayout>} />
+      <Route path="/homePenjual" element={<AppLayoutPenjual><HomePenjual /></AppLayoutPenjual>} />
+    
 
     </Routes>
   );
