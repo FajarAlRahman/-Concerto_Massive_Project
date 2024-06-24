@@ -22,6 +22,7 @@ import { BuatKonserPenjual } from "./pages/buatKonserPenjual/buatKonserPenjual";
 import { KonserAnda } from "./pages/konserAnda/konserAnda";
 import { Notifikasi } from "./pages/notifikasi/notifikasi";
 import { Pendapatan } from "./pages/pendapatan/pendapatan";
+import { ProfilePenjual } from "./pages/profilePenjual/profilePenjual";
 
 const AppRouter = () => {
   return (
@@ -53,6 +54,7 @@ const AppRouter = () => {
       <Route path="/konserAnda" element={<AppLayoutPenjual><KonserAnda /></AppLayoutPenjual>} />
       <Route path="/notifikasi" element={<AppLayoutPenjual><Notifikasi /></AppLayoutPenjual>} />
       <Route path="/pendapatan" element={<AppLayoutPenjual><Pendapatan /></AppLayoutPenjual>} />
+      <Route path="/profilePenjual" element={<AppLayoutPenjual><ProfilePenjual /></AppLayoutPenjual>} />
     
 
     </Routes>
