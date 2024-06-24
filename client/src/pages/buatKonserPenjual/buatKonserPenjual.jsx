@@ -88,7 +88,7 @@ export const BuatKonserPenjual = () => {
                                             <label htmlFor="nama-konser" className="form-label">Nama Konser Musik</label>
                                             <input type="text" className="form-control" id="nama-konser" placeholder="" />
                                         </div>
-                                        <div className="form-item">
+                                        {/* <div className="form-item">
                                             <label htmlFor="provinsi-konser" className="form-label">Provinsi</label>
                                             <input type="text" className="form-control" id="provinsi-konser" placeholder="" />
                                         </div>
@@ -99,7 +99,7 @@ export const BuatKonserPenjual = () => {
                                         <div className="form-item">
                                             <label htmlFor="kecamatan-konser" className="form-label">Kecamatan</label>
                                             <input type="text" className="form-control" id="kecamatan-konser" placeholder="" />
-                                        </div>
+                                        </div> */}
                                         <div className="form-item">
                                             <label htmlFor="alamat-konser" className="form-label">Alamat Lengkap</label>
                                             <textarea type="text" className="form-control alamat-konser" id="alamat-konser" placeholder="" />

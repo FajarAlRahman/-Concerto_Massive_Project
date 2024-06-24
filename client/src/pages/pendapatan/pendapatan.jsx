@@ -21,135 +21,48 @@ export const Pendapatan = () => {
                         <div className="navigasi">Home / Konser Anda</div>
                         <h1 className="header">Lihat Pendapatan Anda</h1>
                         <div className="content-pendapatan">
-                            <div className="box-nav">
-                                <ul className="list-menu-pendapatan">
-                                    <li
-                                        className={`menu-pendapatan ${activeMenu === "Pendapatan" ? "active" : ""}`}
-                                        onClick={() => handleMenuClick("Pendapatan")}
-                                    >
-                                        Pendapatan
-                                        <CgChevronRight className="icon-arrow" />
-                                    </li>
-                                    <li
-                                        className={`menu-pendapatan ${activeMenu === "Pelanggan" ? "active" : ""}`}
-                                        onClick={() => handleMenuClick("Pelanggan")}
-                                    >
-                                        Pelanggan
-                                        <CgChevronRight className="icon-arrow" />
-                                    </li>
-                                    <li
-                                        className={`menu-pendapatan ${activeMenu === "Laporan Penjualan" ? "active" : ""}`}
-                                        onClick={() => handleMenuClick("Laporan Penjualan")}
-                                    >
-                                        Laporan Penjualan
-                                        <CgChevronRight className="icon-arrow" />
-                                    </li>
-                                    <li
-                                        className={`menu-pendapatan ${activeMenu === "Rekapitulasi" ? "active" : ""}`}
-                                        onClick={() => handleMenuClick("Rekapitulasi")}
-                                    >
-                                        Rekapitulasi
-                                        <CgChevronRight className="icon-arrow" />
-                                    </li>
-                                </ul>
-                            </div>
-
-                            {activeMenu === "Pendapatan" && (
-                                <div className="box-content-menu">
+                        <div className="box-content-menu">
                                     <h1 className="header-menu">Pendapatan</h1>
                                     <div className="tool-menu">
                                         <div className="box-tool">
                                             <img src={commercialImg} alt="commercialImg" className="icon-tool" />
                                             <div className="detail-tool">
-                                                <h3>Konser ditayangkan</h3>
+                                                <h3>Jumlah Konser</h3>
                                                 <h5>1 Konser</h5>
                                             </div>
                                         </div>
                                         <div className="box-tool">
                                             <img src={cashImg} alt="commercialImg" className="icon-tool" />
                                             <div className="detail-tool">
-                                                <h3>Konser ditayangkan</h3>
-                                                <h5>1 Konser</h5>
+                                                <h3>Total Pendapatan</h3>
+                                                <h5>Rp 1.000.000</h5>
                                             </div>
                                         </div>
                                         <div className="box-tool">
                                             <img src={ticketImg} alt="commercialImg" className="icon-tool" />
                                             <div className="detail-tool">
-                                                <h3>Konser ditayangkan</h3>
-                                                <h5>1 Konser</h5>
+                                                <h3>Jumlah Tiket Terjual</h3>
+                                                <h5>100 Tiket</h5>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="content-menu-pendapatan">
-                                        {/* grafik penjualan */}
-                                        <h5>Grafik Penjualan</h5>
+                                        <table id="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Id</th>
+                                                    <th>Nama Konser</th>
+                                                    <th>Metode Pembayaran</th>
+                                                    <th>Jumlah Tiket</th>
+                                                    <th>Total Bayar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                            )}
-
-                            {activeMenu === "Pelanggan" && (
-                                <div className="box-content-menu">
-                                    <h1 className="header-menu">Pelanggan</h1>
-                                    <div className="tool-menu">
-                                        {/* <button type="button" className="btn btn-menu-buat-konser" onClick={() => navigate('../buatKonserPenjual')}>Buat Konser</button> */}
-                                        <form className="search d-flex" role="search">
-                                            <div className="input-group flex-nowrap">
-                                                <span className="input-group-text" id="addon-wrapping">
-                                                    <BsSearch className="search-icon" />
-                                                </span>
-                                                <input type="search" className="form-control" placeholder="Cari Konser" aria-label="search" aria-describedby="addon-wrapping" />
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div className="content-menu-pendapatan">
-                                        {/* Tabel Pelangg */}
-                                        <h5>Tabel Pelanggan</h5>
-                                    </div>
-                                </div>
-                            )}
-
-                            {activeMenu === "Laporan Penjualan" && (
-                                <div className="box-content-menu">
-                                    <h1 className="header-menu">Laporan Penjualan</h1>
-                                    <div className="tool-menu">
-                                        {/* <button type="button" className="btn btn-menu-buat-konser" onClick={() => navigate('../buatKonserPenjual')}>Buat Konser</button> */}
-                                        <form className="search d-flex" role="search">
-                                            <div className="input-group flex-nowrap">
-                                                <span className="input-group-text" id="addon-wrapping">
-                                                    <BsSearch className="search-icon" />
-                                                </span>
-                                                <input type="search" className="form-control" placeholder="Cari Konser" aria-label="search" aria-describedby="addon-wrapping" />
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div className="content-menu-pendapatan">
-                                        {/* Tabel Laporan Penjualan*/}
-                                        <h5>Tabel Laporan Penjualan</h5>
-                                    </div>
-                                </div>
-                            )}
-
-                            {activeMenu === "Rekapitulasi" && (
-                                <div className="box-content-menu">
-                                    <h1 className="header-menu">Laporan Rekapitulasi</h1>
-                                    <div className="tool-menu">
-                                        {/* <button type="button" className="btn btn-menu-buat-konser" onClick={() => navigate('../buatKonserPenjual')}>Buat Konser</button> */}
-                                        <form className="search d-flex" role="search">
-                                            <div className="input-group flex-nowrap">
-                                                <span className="input-group-text" id="addon-wrapping">
-                                                    <BsSearch className="search-icon" />
-                                                </span>
-                                                <input type="search" className="form-control" placeholder="Cari Konser" aria-label="search" aria-describedby="addon-wrapping" />
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div className="content-menu-pendapatan">
-                                        {/* Tabel Rekapitulasi */}
-                                        <h5>Tabel Rekapitulasi</h5>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+                            /</div>
                     </div>
                 </div>
             </div>
