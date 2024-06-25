@@ -1,5 +1,5 @@
 const express = require('express');
-const { Register, SavePreferences, Login } = require('../Controller/user');
+const { Register, RegisterSeller, SavePreferences, Login } = require('../Controller/user');
 const { getGenres } = require('../Controller/genres');
 const { getArtists } = require('../Controller/artists');
 const { getAllConcerts, getConcertById, getRecommendedConcerts } = require('../Controller/concerts');
@@ -11,6 +11,7 @@ const { addToCart, getCartItems, deleteCartItem, updateCartItemQuantity } = requ
 const router = express.Router();
 
 router.post('/register', Register);
+router.post('/registerSeller', RegisterSeller);
 router.post('/preferences', SavePreferences);
 router.post('/login', Login);
 router.get('/genres', getGenres);
