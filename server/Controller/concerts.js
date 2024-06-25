@@ -1,4 +1,6 @@
 const { query } = require("../Database/db");
+const multer = require('multer');
+const path = require('path');
 
 const getAllConcerts = async (req, res) => {
     try {
@@ -90,8 +92,77 @@ const getRecommendedConcerts = async (req, res) => {
     }
 };
 
+const createConcert = async (req, res) => {
+    const { name, venue, date, genre, artist, description, image_url, seller_id, categories } = req.body;
+
+    try {
+        // Debugging: Log received data
+        console.log("Received Data:", req.body);
+
+        // Simpan file gambar ke direktori
+        if (req.file) {
+            const imagePath = `client/public/assets/img/${req.file.filename}`;
+            console.log("Image saved to:", imagePath);
+        } else {
+            console.log("No image file received.");
+        }
+
+        // Insert concert
+        const concertResult = await query("INSERT INTO concerts (name, venue, date, description, image_url, seller_id) VALUES (?, ?, ?, ?, ?, ?)", 
+            [name, venue, date, description, image_url, seller_id]);
+        const concertId = concertResult.insertId;
+        console.log("Concert inserted with ID:", concertId);
+
+        // Insert genres
+        const genreResult = await query("SELECT id FROM genres WHERE name = ?", [genre]);
+        const genreId = genreResult.length > 0 ? genreResult[0].id : null;
+        if (genreId) {
+            await query("INSERT INTO concert_genres (concert_id, genre_id) VALUES (?, ?)", [concertId, genreId]);
+            console.log("Genre inserted with ID:", genreId);
+        } else {
+            console.log("Genre not found for name:", genre);
+        }
+
+        // Insert artists
+        const artistResult = await query("SELECT id FROM artists WHERE name = ?", [artist]);
+        const artistId = artistResult.length > 0 ? artistResult[0].id : null;
+        if (artistId) {
+            await query("INSERT INTO concert_artists (concert_id, artist_id) VALUES (?, ?)", [concertId, artistId]);
+            console.log("Artist inserted with ID:", artistId);
+        } else {
+            console.log("Artist not found for name:", artist);
+        }
+
+        // Insert tickets
+        const categoriesData = JSON.parse(categories);
+        for (let category of categoriesData) {
+            await query("INSERT INTO tickets (concert_id, type, price) VALUES (?, ?, ?)", [concertId, category.name, category.price]);
+            console.log("Ticket category inserted:", category);
+        }
+
+        res.json({ msg: "Konser berhasil dibuat" });
+        console.log("Concert creation successful");
+    } catch (error) {
+        console.error("Error during concert creation:", error);
+        res.status(500).json({ error: "Gagal membuat konser" });
+    }
+};
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'client/public/assets/img');
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    }
+});
+
+const upload = multer({ storage: storage });
+
 module.exports = {
     getAllConcerts,
     getConcertById,
-    getRecommendedConcerts
+    getRecommendedConcerts,
+    createConcert,
+    upload,
 };

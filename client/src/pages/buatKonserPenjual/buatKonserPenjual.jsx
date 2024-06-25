@@ -1,5 +1,6 @@
-import React, { useState, useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 import { BsCircleFill, BsFillTrash3Fill, BsPlusLg } from "react-icons/bs";
 import "./buatKonserPenjual.css";
 
@@ -12,6 +13,17 @@ export const BuatKonserPenjual = () => {
     const [jumlahTiket, setJumlahTiket] = useState(""); // State untuk jumlah tiket
     const [tglAkhirTiket, setTglAkhirTiket] = useState(""); // State untuk tanggal akhir tiket
 
+    const [konserData, setKonserData] = useState({
+        name: '',
+        venue: '',
+        date: '',
+        genre: '',
+        artist: '',
+        description: '',
+        image_url: '',
+        seller_id: sessionStorage.getItem('userId') // Ambil seller_id dari session storage
+    });
+
     useEffect(() => {
         // Set default category values 1
         setCategories([{ id: 1, name: "", price: "" }]);
@@ -20,11 +32,8 @@ export const BuatKonserPenjual = () => {
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
-            const reader = new FileReader();
-            reader.onload = () => {
-                setImage(reader.result);
-            };
-            reader.readAsDataURL(file);
+            setImage(URL.createObjectURL(file));
+            setKonserData({ ...konserData, image_url: file.name });
         }
     };
 
@@ -32,11 +41,9 @@ export const BuatKonserPenjual = () => {
         setStep(step + 1);
     };
 
-    const handleTicketTypeSelection = (type) => {
-        setSelectedTicketType(type);
-        if (type === "gratis") {
-            setCategories([]); // Clear categories jika "tiket gratis"
-        }
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setKonserData({ ...konserData, [name]: value });
     };
 
     const handleAddCategory = () => {
@@ -54,6 +61,50 @@ export const BuatKonserPenjual = () => {
         const updatedCategories = categories.filter(category => category.id !== id);
         setCategories(updatedCategories);
     };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            console.log("Submitting concert data..."); // Debugging
+            console.log("Konser Data:", konserData); // Debugging
+            console.log("Categories:", categories); // Debugging
+    
+            const formData = new FormData();
+            formData.append('name', konserData.name);
+            formData.append('venue', konserData.venue);
+            formData.append('date', konserData.date);
+            formData.append('genre', konserData.genre);
+            formData.append('artist', konserData.artist);
+            formData.append('description', konserData.description);
+            formData.append('seller_id', sessionStorage.getItem('userId')); // Ambil seller_id dari sessionStorage
+            formData.append('categories', JSON.stringify(categories));
+    
+            const imageInput = document.getElementById('image_url');
+            if (imageInput && imageInput.files.length > 0) {
+                console.log("Image file found:", imageInput.files[0]); // Debugging
+                formData.append('imageData', imageInput.files[0]); // Ambil file gambar
+            } else {
+                console.error("Image input element or files not found."); // Debugging
+            }
+    
+            console.log("FormData prepared:", formData); // Debugging
+    
+            const response = await axios.post('http://localhost:3000/createConcert', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                withCredentials: true
+            });
+            console.log("Response received:", response.data); // Debugging
+            if (response.data.msg === "Konser berhasil dibuat") {
+                navigate('/homePenjual');
+            } else {
+                alert(response.data.msg);
+            }
+        } catch (error) {
+            console.error('There was an error!', error);
+        }
+    };    
 
     return (
         <>
@@ -85,34 +136,80 @@ export const BuatKonserPenjual = () => {
 
                                     <form action="" method="" className="form-input">
                                         <div className="form-item">
-                                            <label htmlFor="nama-konser" className="form-label">Nama Konser Musik</label>
-                                            <input type="text" className="form-control" id="nama-konser" placeholder="" />
+                                            <label htmlFor="name" className="form-label">Nama Konser Musik</label>
+                                            <input 
+                                                type="text" 
+                                                className="form-control" 
+                                                id="name" 
+                                                name="name"
+                                                placeholder="" 
+                                                value={konserData.name}
+                                                onChange={handleInputChange}
+                                            />
                                         </div>
                                         <div className="form-item">
-                                            <label htmlFor="alamat-konser" className="form-label">Alamat Lengkap</label>
-                                            <textarea type="text" className="form-control alamat-konser" id="alamat-konser" placeholder="" />
+                                            <label htmlFor="venue" className="form-label">Alamat Lengkap</label>
+                                            <textarea 
+                                                className="form-control alamat-konser" 
+                                                id="venue" 
+                                                name="venue"
+                                                placeholder="" 
+                                                value={konserData.venue}
+                                                onChange={handleInputChange}
+                                            />
                                         </div>
                                         <div className="form-item">
-                                            <label htmlFor="tgl-konser" className="form-label">Tanggal Konser</label>
-                                            <input type="date" className="form-control" id="tgl-konser" placeholder="" />
+                                            <label htmlFor="date" className="form-label">Tanggal Konser</label>
+                                            <input 
+                                                type="date" 
+                                                className="form-control" 
+                                                id="date" 
+                                                name="date"
+                                                placeholder="" 
+                                                value={konserData.date}
+                                                onChange={handleInputChange}
+                                            />
                                         </div>
                                         <div className="form-item">
-                                            <label htmlFor="genre-konser" className="form-label">Genre</label>
-                                            <input type="text" className="form-control" id="genre-konser" placeholder="" />
+                                            <label htmlFor="genre" className="form-label">Genre</label>
+                                            <input 
+                                                type="text" 
+                                                className="form-control" 
+                                                id="genre" 
+                                                name="genre"
+                                                placeholder="" 
+                                                value={konserData.genre}
+                                                onChange={handleInputChange}
+                                            />
                                         </div>
                                         <div className="form-item">
-                                            <label htmlFor="artist-konser" className="form-label">Artist</label>
-                                            <input type="text" className="form-control" id="artist-konser" placeholder="" />
+                                            <label htmlFor="artist" className="form-label">Artist</label>
+                                            <input 
+                                                type="text" 
+                                                className="form-control" 
+                                                id="artist" 
+                                                name="artist"
+                                                placeholder="" 
+                                                value={konserData.artist}
+                                                onChange={handleInputChange}
+                                            />
                                         </div>
                                         <div className="form-item">
-                                            <label htmlFor="detail-konser" className="form-label">Detail Konser</label>
+                                            <label htmlFor="description" className="form-label">Detail Konser</label>
                                             <p>Tuliskanlah jadwal konser seperti jam atau peraturan konser yang belum tercantum di atas. Anda juga bisa masukkan penjelasan mengenai acara Anda.</p>
-                                            <textarea type="text" className="form-control alamat-konser" id="detail-konser" placeholder="" />
+                                            <textarea 
+                                                className="form-control alamat-konser" 
+                                                id="description" 
+                                                name="description"
+                                                placeholder="" 
+                                                value={konserData.description}
+                                                onChange={handleInputChange}
+                                            />
                                         </div>
                                         <div className="form-item">
-                                            <label htmlFor="gambar-konser" className="form-label">Gambar Konser</label>
+                                            <label htmlFor="image_url" className="form-label">Gambar Konser</label>
                                             <p>Unggah foto atau gambar bisa berupa poster acara Anda ataupun thumbnail. Ukuran gambar yang disarankan 890 x 480 pixel. Besar gambar maksimal 1 Mb, jenis file jpg, jpeg, png. Maksimal unggahan 1 gambar.</p>
-                                            <div className="upload-container" onClick={() => document.getElementById("gambar-konser").click()}>
+                                            <div className="upload-container" onClick={() => document.getElementById("image_url").click()}>
                                                 {image ? (
                                                     <img src={image} alt="Preview" className="image-preview" />
                                                 ) : (
@@ -124,7 +221,8 @@ export const BuatKonserPenjual = () => {
                                                 <input
                                                     type="file"
                                                     className="input-file"
-                                                    id="gambar-konser"
+                                                    id="image_url"
+                                                    name="image_url"
                                                     onChange={handleImageChange}
                                                     accept="image/png, image/jpeg"
                                                     style={{ display: 'none' }}
@@ -207,7 +305,7 @@ export const BuatKonserPenjual = () => {
                                                 </div>
                                                 <div className="form-btn-footer">
                                                     <button type="button" className="btn btn-kembali" onClick={() => setStep(step - 1)}>Kembali</button>
-                                                    <button type="submit" className="btn btn-simpan">Simpan dan Lanjutkan</button>
+                                                    <button type="submit" className="btn btn-simpan" onClick={handleSubmit}>Simpan dan Lanjutkan</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -279,7 +377,7 @@ export const BuatKonserPenjual = () => {
 
                                                 <div className="form-btn-footer">
                                                     <button type="button" className="btn btn-kembali" onClick={() => setStep(step - 1)}>Kembali</button>
-                                                    <button type="submit" className="btn btn-simpan" onClick={() => navigate('../konserAnda')}>Simpan dan Lanjutkan</button>
+                                                    <button type="submit" className="btn btn-simpan" onClick={handleSubmit}>Simpan dan Lanjutkan</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -293,3 +391,5 @@ export const BuatKonserPenjual = () => {
         </>
     );
 };
+
+export default BuatKonserPenjual;
