@@ -21,8 +21,15 @@ export const Login = () => {
                 sessionStorage.setItem('userId', response.data.userId);
                 sessionStorage.setItem('full_name', response.data.full_name);
                 sessionStorage.setItem('email', response.data.email);
+                sessionStorage.setItem('role', response.data.role);
                 console.log('Session Storage:', sessionStorage); // Debug session storage
-                navigate('../home');
+
+                // Redirect berdasarkan role
+                if (response.data.role === 1) { // 1 untuk buyer
+                    navigate('/home');
+                } else if (response.data.role === 2) { // 2 untuk seller
+                    navigate('/homePenjual');
+                }
             } else {
                 alert(response.data.msg);
             }

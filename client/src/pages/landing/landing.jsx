@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import "./landing.css";
 
-import banner1 from '../../assets/img/banner1.png';
+// import banner1 from '../../assets/img/banner1.png';
 import compassImg from '../../assets/img/Compass_fill.svg';
 import searchImg from '../../assets/img/Search.svg';
 import groubAddImg from '../../assets/img/group_add_fil.svg';
@@ -18,10 +18,14 @@ import sampulKonser from '../../assets/img/sheilaon7.jpeg';
 import person1 from '../../assets/img/person1.png';
 import person2 from '../../assets/img/person2.png';
 import profileTestimoni from '../../assets/img/profileTestimoni.jpg';
-import Navbar from "../../components/common/Navbar/Navbar";
-import Footer from "../../components/common/Footer/Footer";
 
 
+import banner1 from '../../assets/img/spotlight-1.png';
+import banner2 from '../../assets/img/spotlight-2.png';
+import banner3 from '../../assets/img/spotlight-3.png';
+import banner4 from '../../assets/img/spotlight-4.png';
+import banner5 from '../../assets/img/spotlight-5.png';
+import banner6 from '../../assets/img/spotlight-6.png';
 
 
 export const Landing = () => {
@@ -108,36 +112,37 @@ export const Landing = () => {
 
                 {/* Spotlight */}
                 <div className="spotlight">
-                    <div className="container-fluid mx-5">
-                        <div id="carouselExampleDark" className="carousel carousel-dark slide">
-                            <div className="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    {/* <div className="container-fluid mx-5"> */}
+                    <div id="carouselExampleDark" className="carousel carousel-dark slide">
+                        <div className="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="5" aria-label="Slide 6"></button>
+
+                        </div>
+                        <div className="carousel-inner">
+                            <div className="carousel-item active" data-bs-interval="1000">
+                                <img src={banner1} className="img-banner d-block w-100" alt="..." />
                             </div>
-                            <div className="carousel-inner">
-                                <div className="carousel-item active" data-bs-interval="10000">
-                                    <img src={banner1} className="d-block w-100" alt="..." />
-                                    <div className="carousel-caption d-none d-md-block">
-                                        {/* <h5>First slide label</h5>
-                                        <p>Some representative placeholder content for the first slide.</p> */}
-                                    </div>
-                                </div>
-                                <div className="carousel-item" data-bs-interval="2000">
-                                    <img src={banner1} class="d-block w-100" alt="..." />
-                                    <div className="carousel-caption d-none d-md-block">
-                                        {/* <h5>Second slide label</h5>
-                                        <p>Some representative placeholder content for the second slide.</p> */}
-                                    </div>
-                                </div>
-                                <div className="carousel-item">
-                                    <img src={banner1} className="d-block w-100" alt="..." />
-                                    <div className="carousel-caption d-none d-md-block">
-                                        {/* <h5>Third slide label</h5>
-                                        <p>Some representative placeholder content for the third slide.</p> */}
-                                    </div>
-                                </div>
+                            <div className="carousel-item" data-bs-interval="2000">
+                                <img src={banner2} className="d-block w-100" alt="..." />
                             </div>
+                            <div className="carousel-item" data-bs-interval="2000">
+                                <img src={banner3} className="d-block w-100" alt="..." />
+                            </div>
+                            <div className="carousel-item" data-bs-interval="2000">
+                                <img src={banner4} className="d-block w-100" alt="..." />
+                            </div>
+                            <div className="carousel-item" data-bs-interval="2000">
+                                <img src={banner5} className="d-block w-100" alt="..." />
+                            </div>
+                            <div className="carousel-item" data-bs-interval="2000">
+                                <img src={banner6} className="d-block w-100" alt="..." />
+                            </div>
+                        </div>
                             <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
                                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span className="visually-hidden">Previous</span>
@@ -147,7 +152,7 @@ export const Landing = () => {
                                 <span className="visually-hidden">Next</span>
                             </button>
                         </div>
-                    </div>
+                    {/* </div> */}
                 </div>
 
                 {/* Content Rekomendasi */}
@@ -172,9 +177,12 @@ export const Landing = () => {
                                                 Sahid Raya Hotel & Convention Yogyakarta
                                             </div>
                                             <div className="footer-konser">
-                                                <div className="harga-konser">Rp 250.000</div>
-                                                <button type="button" className="btn btn-konser" onClick={() => navigate('../halamanKonser')}>Beli Tiket</button>
+                                                <div className="footer-wrapper">
+                                                    <div className="harga-konser">Rp 250.000</div>
+                                                    <button type="button" className="btn btn-konser" onClick={() => navigate('../halamanKonser')}>Beli Tiket</button>
+                                                </div>
                                             </div>
+
                                         </div>
                                     </>
                                 );
@@ -205,8 +213,10 @@ export const Landing = () => {
                                                 Sahid Raya Hotel & Convention Yogyakarta
                                             </div>
                                             <div className="footer-konser">
-                                                <div className="harga-konser">Rp 250.000</div>
-                                                <button type="button" className="btn btn-konser" onClick={() => navigate('../halamanKonser')}>Beli Tiket</button>
+                                                <div className="footer-wrapper">
+                                                    <div className="harga-konser">Rp 250.000</div>
+                                                    <button type="button" className="btn btn-konser" onClick={() => navigate('../halamanKonser')}>Beli Tiket</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </>
@@ -226,7 +236,7 @@ export const Landing = () => {
                     <div className="right-section">
                         <div className="label">Buat Acara Anda sendiri</div>
                         <p className="text-buat-konser">Daftarkan acara Anda gratis di sini dan nikmati keuntungannya</p>
-                        <button type="button" className="btn btn-buat-konser">Buat Konser</button>
+                        <button type="button" className="btn btn-buat-konser"  onClick={() => navigate('../loginPenjual')}>Buat Konser</button>
                     </div>
                     {/* </div> */}
                 </section>

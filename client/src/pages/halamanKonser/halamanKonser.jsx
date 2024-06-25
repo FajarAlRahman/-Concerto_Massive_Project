@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 import "./halamanKonser.css";
+import Modal from "../../components/ui/Modal";
 
 import iconLokasi from '../../assets/img/Pin_fill_black.svg';
 import iconTgl from '../../assets/img/Date_range_fill_black.svg';
@@ -13,6 +14,8 @@ const HalamanKonser = () => {
     const [concert, setConcert] = useState(null);
     const [selectedTicket, setSelectedTicket] = useState(null);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
 
     useEffect(() => {
         const fetchConcert = async () => {
@@ -75,9 +78,18 @@ const HalamanKonser = () => {
         return `/assets/img/${imageUrl}`;
     };
 
+    const handleModalOpen = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleModalClose = () => {
+        setIsModalOpen(false);
+    };
+
     if (!concert) return <p>Loading...</p>;
 
     return (
+        <>
         <div className="halamanKonser">
             <div className="content">
                 <div className="container-fluid mx-5">
@@ -146,7 +158,7 @@ const HalamanKonser = () => {
                                         <img src={iconKeranjangPink} alt="" className="icon-btn-pilihan-tiket" />
                                         Beli Tiket
                                     </button>
-                                    <button type="button" className="btn btn-pilihan-beli" onClick={handlePesanSekarang}>Pesan Sekarang</button>
+                                    <button type="button" className="btn btn-pilihan-beli" onClick={handleModalOpen}>Pesan Sekarang</button>
                                 </div>
                             </form>
                         </div>
@@ -154,6 +166,39 @@ const HalamanKonser = () => {
                 </div>
             </div>
         </div>
+
+        
+            <Modal isOpen={isModalOpen} onClose={handleModalClose}>
+                <div className='modal-body'>
+                    <div className='head-body'>
+                        <h3 className="title-modal-hlm-konser">Konfirmasi</h3>
+                    </div>
+                    <div className='body-content'>
+                        <div className="data-diri-modal">
+                            <h6>E-Tiket Anda akan langsung dikirim ke</h6>
+                            <h6>Email : <span>randahayu@gmail.com</span></h6>
+                            <h6>WhatsApp : <span>088812345678</span></h6>
+                        </div>
+                        <div className="item-tiket-modal">
+                            <h6>List item yang dibeli</h6>
+                            <h6>Pilihan Tiket : <span>VVIP</span></h6>
+                            <h6>Jumlah : <span>1 Tiket</span></h6>
+                        </div>
+                    </div>
+                    <div className='body-end'>
+                        <p>
+                        Anda yakin ingin melanjutkan? <br/>
+                        Jika Anda ingin mengubah Email atau WhatsApp Anda silakan ke <br/>
+                        <Link to="/profile">Pengaturan Akun</Link>
+                        </p>
+                    </div>
+                    <div className='btn-wrapper-modal'>
+                        <button type='button' className='btn btn-close-modal' onClick={handleModalClose}>Batalkan</button>
+                        <button type='button' className='btn btn-lanjut-modal' onClick={handlePesanSekarang} >Ya, Lanjutkan</button>
+                    </div>
+                </div>
+            </Modal>
+            </>
     );
 };
 
