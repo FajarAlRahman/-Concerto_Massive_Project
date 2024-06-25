@@ -93,23 +93,23 @@ const getRecommendedConcerts = async (req, res) => {
 };
 
 const createConcert = async (req, res) => {
-    const { name, venue, date, genre, artist, description, image_url, seller_id, categories } = req.body;
+    const { name, venue, date, genre, artist, description, seller_id, categories } = req.body;
 
     try {
         // Debugging: Log received data
         console.log("Received Data:", req.body);
 
-        // Simpan file gambar ke direktori
+        let imageUrl = '';
         if (req.file) {
-            const imagePath = `client/public/assets/img/${req.file.filename}`;
-            console.log("Image saved to:", imagePath);
+            imageUrl = req.file.filename; // Simpan nama file gambar ke imageUrl
+            console.log("Image saved to:", imageUrl);
         } else {
             console.log("No image file received.");
         }
 
         // Insert concert
         const concertResult = await query("INSERT INTO concerts (name, venue, date, description, image_url, seller_id) VALUES (?, ?, ?, ?, ?, ?)", 
-            [name, venue, date, description, image_url, seller_id]);
+            [name, venue, date, description, imageUrl, seller_id]);
         const concertId = concertResult.insertId;
         console.log("Concert inserted with ID:", concertId);
 
@@ -166,3 +166,4 @@ module.exports = {
     createConcert,
     upload,
 };
+

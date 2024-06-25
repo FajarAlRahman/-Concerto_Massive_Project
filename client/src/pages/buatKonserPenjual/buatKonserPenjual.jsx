@@ -36,6 +36,7 @@ export const BuatKonserPenjual = () => {
             setKonserData({ ...konserData, image_url: file.name });
         }
     };
+    
 
     const handleNextStep = () => {
         setStep(step + 1);
@@ -104,7 +105,8 @@ export const BuatKonserPenjual = () => {
         } catch (error) {
             console.error('There was an error!', error);
         }
-    };    
+    };
+        
 
     return (
         <>
@@ -229,6 +231,7 @@ export const BuatKonserPenjual = () => {
                                                 />
                                             </div>
                                         </div>
+
                                         <div className="form-btn">
                                             <button type="button" className="btn btn-simpan" onClick={handleNextStep}>Simpan dan Lanjutkan</button>
                                         </div>

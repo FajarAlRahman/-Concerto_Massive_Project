@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 23, 2024 at 10:33 AM
+-- Generation Time: Jun 25, 2024 at 01:16 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -98,6 +98,14 @@ CREATE TABLE `carts` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `carts`
+--
+
+INSERT INTO `carts` (`id`, `user_id`, `created_at`) VALUES
+(3, 20, '2024-06-23 10:49:19'),
+(4, 21, '2024-06-23 11:11:34');
+
 -- --------------------------------------------------------
 
 --
@@ -120,7 +128,10 @@ INSERT INTO `chatmessages` (`id`, `sender_id`, `receiver_id`, `message`, `create
 (8, 20, 21, 'halo', '2024-06-23 05:34:55'),
 (9, 21, 20, 'apa kabar', '2024-06-23 05:35:30'),
 (10, 20, 21, 'baik baik saja', '2024-06-23 05:35:51'),
-(11, 20, 21, 'hai hai', '2024-06-23 06:04:51');
+(11, 20, 21, 'hai hai', '2024-06-23 06:04:51'),
+(12, 20, 21, 'tes 1', '2024-06-24 12:57:46'),
+(13, 21, 20, 'tes 2', '2024-06-24 12:58:05'),
+(14, 20, 21, 'halo', '2024-06-25 08:48:45');
 
 -- --------------------------------------------------------
 
@@ -134,30 +145,31 @@ CREATE TABLE `concerts` (
   `date` date NOT NULL,
   `venue` varchar(255) NOT NULL,
   `description` text DEFAULT NULL,
-  `image_url` varchar(255) DEFAULT NULL
+  `image_url` varchar(255) DEFAULT NULL,
+  `seller_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `concerts`
 --
 
-INSERT INTO `concerts` (`id`, `name`, `date`, `venue`, `description`, `image_url`) VALUES
-(80, 'Sheila on 7', '2024-09-04', 'Sahid Raya Hotel & Convention Yogyakarta', 'Highlight\nSHEILA ON 7 LIVE IN CONCERT\n4 SEPTEMBER \'24', 'sheilaon7_13.png'),
-(81, 'Bersua', '2024-04-27', 'Stadion Kridosono Yogyakarta', 'Di tengah keindahan Yogyakarta yang kaya akan budaya. BERSUA hadir sebagai panggung kebersamaan di mana musik menyatukan orang-orang dari berbagai latar belakang. Suatu acara di mana keluarga, sahabat, dan komunitas bisa bersatu dalam keindahan musik, merayakan keberagaman, dan menciptakan kenangan yang tak terlupakan.', 'bersua2.png'),
-(82, 'WESTLIFE', '2024-06-07', 'Candi Prambanan', 'Bersiaplah untuk tenggelam dalam suasana nostalgia dalam konser Westlife: The Hits Tour 2024! Saksikan Shane Filan, Mark Feehily, Kian Egan, dan Nicky Byrne menyanyikan lagu-lagu hits mereka di atas panggung. Ini akan menjadi malam istimewa saat mereka memberikan penampilan terbaiknya dengan latar belakang megah Candi Prambanan.\r\n\r\nJangan lewatkan konser ini pada tanggal 7 Juni 2024 dan beli tiketnya sekarang juga! Kembali ke masa lalu dan nikmati suasana nostalgia di konser Westlife: The Hits Tour 2024. Bergabunglah dalam malam tak terlupakan ini, di mana Shane Filan, Mark Feehily, Kian Egan, dan Nicky Byrne akan menghibur kamu dengan lagu-lagu terbaik mereka secara langsung di atas panggung.\r\n\r\nDengan latar belakang Candi Prambanan yang menakjubkan, konser ini menjanjikan malam yang tak terlupakan bagi semua penggemar band asal Irlandia ini. Catat tanggalnya, 7 Juni 2024, dan amankan tiketmu sebelum kehabisan!', 'westlife16.png'),
-(83, 'Jogjarockarta Festival', '2024-01-27', 'Stadium Kridosono Yogyakarta', 'Bersiaplah untuk malam yang luar biasa di Stadion Kridosono dengan JogjaROCKarta Festival 2024 pada 27 Januari 2024! Nikmati pertunjukan spektakuler dari Andromedha, Kaisar, dan Rolland yang akan membuat akhir pekan Anda tak terlupakan. Ajak teman-teman metalhead Anda untuk menambah keseruan dan bergabunglah dalam pesta rock terbesar di Yogyakarta ini. Jangan lewatkan perayaan epik ini, di mana panggung telah disiapkan, kerumunan yang liar, dan musik yang dijamin akan membuat jiwa Anda berteriak lebih banyak!', 'jogjarockarta8.png'),
-(84, 'E-UPHONIA', '2024-05-11', 'Stadion Mandala Krida', 'E-Uphonia hadir membawakan pengalaman baru untukmu, dikemas dalam sebuah acara musik dengan melodi-melodi yang akan dibawakan oleh para perfomers yang akan membawa kita semua ke dalam pengalaman konser yang fantastis!\n\nSAVE THE DATE\n🗓11 Mei 2024\n📍Stadion Mandala Krida Yogyakarta\n\nSPECIAL PERFORMANCE by Reality Club, Rumah Sakit, and many more to be announced! 🎸✨\n\nTersedia juga tenant-tenant menarik yang turut hadir meramaikan E-Uphonia 2024 di Stadion Mandala Krida besok loh!! ', 'e-uphonia5.png'),
-(85, 'SUM 41', '2024-03-01', 'Uptown Park, Summarecon Mall Serpong', 'Konser perdana dan pemungkas SUM 41 di Yogyakarta sebelum bubar! “Tour Of The Setting Sum - Final Tour”', 'sum 41_15.png'),
-(86, 'Jogja Mix Music', '2024-06-04', 'Stadion Mandala Krida', 'Jogja Mix Music merupakan sebuah pertunjukan musik yang dikemas seperti mini carnival, dimana kegiatan ini tidak hanya menyajikan pertunjukan musik saja namun juga menyajikan spesial talk show, game show, serta food truck festival. Jogja Mix Music akan dilaksanakan pada tanggal 4 juni 2023 di parkiran stadion mandala krida Yogyakarta.', 'Jogja Mix Music7.png'),
-(87, 'Cimphoria #7 Rumah Sakit', '2024-06-08', 'Stadion Mandala Krida', 'CIMPHORIA #7 merupakan acara penutup dari rangkaian acara CED 2024. Mengusung tema Wandering in Cimphoria Going Through the Atmosphere, kembali berkelana merasakan suasana di Cimphoria #7 yang akan menghadirkan UKM dari UAJY, Talent yang menarik, dan Guest Star yang terkenal dan pastinya asik.\r\n\r\nSo, let\'s grab yours!!!', 'cimporia3.png'),
-(88, 'Rhapsody Nusantara', '2024-05-11', 'Candi Prambanan', 'angan berhenti Yang kau takutkan takkan terjadi. Buang rasa sunyi bareng Kunto Aji di Rhapsody Nusantara!\nTak hanya Kunto Aji, Rhapsody Nusantara juga menghadirkan penampilan spesial dari para musisi Tanah Air lainnya seperti Afgan, Lyodra, Letto, Shaggydog, Ndarboy Genk, dan masih banyak lagi!', 'Rhapsody Nusantara11.png'),
-(89, 'Berdansalah - Karir ini tidak ada artinya', '2024-04-21', 'GOR Universitas Negeri Yogyakarta', 'Special Show Hindia Live in Yogyakarta: “Berdansalah, Karir Ini Tak Ada Artinya”', 'berdansalah1.png'),
-(90, 'DEFRAG', '2024-06-04', 'GOR UNY Jogjakarta', 'Tahun 2020 menjadi penanda kolaborasi antara Hectic Creative dengan Hindia dalam acara Revel Gigs, yang dilaksanakan pada tanggal 31 Januari 2020 di PKKH Universitas Gadjah Mada, Yogyakarta. Momentum ini merupakan kedua kalinya Hindia menyapa Team Hindia, nama penggemar Baskara, di Kota Istimewa. Daniel Baskara Putra (dikenal dengan nama Hindia) memulai solo karir sejak tahun 2018 dengan merilis single \"No One Will Find Me\". Hingga kini, Hindia telah merilis berbagai karya, termasuk album kedua berjudul \"Lagipula Hidup Akan Berakhir\" pada tahun 2023, yang berisikan 24 track yang dibagi dalam dua bagian, termasuk \"Cincin\", \"Berdansalah, Karir Ini Tak Ada Artinya\", dan \"Kita Ke Sana\".', 'defrag4.png'),
-(91, 'Joget-In Fest', '2024-06-22', 'Stadium Kridosono Yogyakarta', 'Joget-in Fest adalah sebuah pertunjukan kreasi putra dan putri bangsa, yang menghadirkan berbagai karya musik lintas genre, seni, dan budaya kepada masyarakat Indonesia. Pentas ini di selenggarakan oleh ekeskutif produser film “Jakarta vs Everybody”, mempersembahkan tur festival di negeri ini, dari satu kota ke kota lainnya. Bersiaplah untuk mereguk irama dan suasana beragam rasa, dan ikuti perjalanannya!', 'jogetin fest6.png'),
-(92, 'Sahid Live Intimate Concert with Iwan Fals & Band', '2024-06-22', 'Sahid Raya Hotel & Convention Yogyakarta', 'Mengusung konsep tema \'Sahid Intimate Live in Concert with Iwan Fals\', konser ini bertujuan untuk membawa para penonton bernostalgia dan menikmati lagu-lagu legendaris Iwan Fals. Dilengkapi dengan fasilitas Grand Ballroom berkapasitas 1.500 penonton yang nyaman dengan kualitas standar fasilitas hotel bintang 4, konser ini akan menampilkan panggung megah yang memungkinkan penonton menikmati pertunjukan dengan mudah.', 'Iwan Fals12.png'),
-(93, 'SMAVENSARY', '2024-06-29', 'Asha Akasa, Yogyakarta', 'Smavensary merupakan event tahunan SMAN 7 Yogyakarta untuk memperingati ulang tahun sekolah. Dalam rangka merayakan Lustrum ke-8, Smavensary tahun ini dibuka untuk umum. Dengan konsep “Diversity in Unity”, Smavensary 2024 bertujuan membawa keberagaman yang ada untuk menumbuhkan rasa persatuan di sekitar kita. Acara ini akan menampilkan pertunjukan dari penampil internal SMAN 7 Yogyakarta dan bintang tamu.', 'SMAVENSARY14.png'),
-(94, 'Jurasik Fest 2024', '2024-09-08', 'Stadion Mandala Krida', 'Jurasik Fest kembali merayakan tahun ke-3 dengan penuh semangat pada tahun 2024! Setelah dua tahun sukses menyelenggarakan acara, festival ini kembali dengan format yang lebih menarik dan beragam. Tahun ini, pengunjung akan dimanjakan dengan berbagai pengalaman tak terlupakan, mulai dari penampilan panggung yang spektakuler hingga kegiatan interaktif yang menghibur.\n\nSetelah sukses menghadirkan Tulus dan Kunto Aji pada tahun 2022, serta Maliq & D’Essentials, Nadin Amizah, Sal Priadi, dan Coldiac pada tahun 2023, Jurasik Fest 2024 akan mempersembahkan deretan artis nasional yang akan menghibur dan memukau penonton. Tahun ini, Jurasik Fest kembali menggembirakan dengan mengundang bintang tamu yang tak kalah menarik dari sebelumnya.', 'Jurasik Fest9.jpeg'),
-(95, 'Ndeso Run & Fun', '2024-08-25', 'Candi Banyunibo, Yogyakarta', 'Halo Runners, Ndeso Run & Fun akan hadir untuk mewarnai hari-hari di kehidupan kamu! Yuk, persiapkan dirimu untuk mengikuti Ndeso Run & Fun 2024 dengan keluarga maupun teman-teman kamu! Detail kegiatan akan kami umumkan segera, jadi jangan lupa untuk nyalakan notifikasi kamu biar nggak ketinggalan informasi terbaru dari kami. Jangan lupa untuk rajin latihan dan jaga kesehatan selalu! Ndeso Run & Fun 2024 \"Hidup sehat bersama kalian.\" \nPERIODE PENDAFTARAN:\n27 April 2024 - 23 Juni 2024. \nHARI & TANGGAL PELAKSANAAN: \nMinggu, 23 Juni 2024.', 'Ndeso Run Fun10.jpeg');
+INSERT INTO `concerts` (`id`, `name`, `date`, `venue`, `description`, `image_url`, `seller_id`) VALUES
+(80, 'Sheila on 7', '2024-09-04', 'Sahid Raya Hotel & Convention Yogyakarta', 'Highlight\nSHEILA ON 7 LIVE IN CONCERT\n4 SEPTEMBER \'24', 'sheilaon7_13.png', 22),
+(81, 'Bersua', '2024-04-27', 'Stadion Kridosono Yogyakarta', 'Di tengah keindahan Yogyakarta yang kaya akan budaya. BERSUA hadir sebagai panggung kebersamaan di mana musik menyatukan orang-orang dari berbagai latar belakang. Suatu acara di mana keluarga, sahabat, dan komunitas bisa bersatu dalam keindahan musik, merayakan keberagaman, dan menciptakan kenangan yang tak terlupakan.', 'bersua2.png', 22),
+(82, 'WESTLIFE', '2024-06-07', 'Candi Prambanan', 'Bersiaplah untuk tenggelam dalam suasana nostalgia dalam konser Westlife: The Hits Tour 2024! Saksikan Shane Filan, Mark Feehily, Kian Egan, dan Nicky Byrne menyanyikan lagu-lagu hits mereka di atas panggung. Ini akan menjadi malam istimewa saat mereka memberikan penampilan terbaiknya dengan latar belakang megah Candi Prambanan.\r\n\r\nJangan lewatkan konser ini pada tanggal 7 Juni 2024 dan beli tiketnya sekarang juga! Kembali ke masa lalu dan nikmati suasana nostalgia di konser Westlife: The Hits Tour 2024. Bergabunglah dalam malam tak terlupakan ini, di mana Shane Filan, Mark Feehily, Kian Egan, dan Nicky Byrne akan menghibur kamu dengan lagu-lagu terbaik mereka secara langsung di atas panggung.\r\n\r\nDengan latar belakang Candi Prambanan yang menakjubkan, konser ini menjanjikan malam yang tak terlupakan bagi semua penggemar band asal Irlandia ini. Catat tanggalnya, 7 Juni 2024, dan amankan tiketmu sebelum kehabisan!', 'westlife16.png', 22),
+(83, 'Jogjarockarta Festival', '2024-01-27', 'Stadium Kridosono Yogyakarta', 'Bersiaplah untuk malam yang luar biasa di Stadion Kridosono dengan JogjaROCKarta Festival 2024 pada 27 Januari 2024! Nikmati pertunjukan spektakuler dari Andromedha, Kaisar, dan Rolland yang akan membuat akhir pekan Anda tak terlupakan. Ajak teman-teman metalhead Anda untuk menambah keseruan dan bergabunglah dalam pesta rock terbesar di Yogyakarta ini. Jangan lewatkan perayaan epik ini, di mana panggung telah disiapkan, kerumunan yang liar, dan musik yang dijamin akan membuat jiwa Anda berteriak lebih banyak!', 'jogjarockarta8.png', 22),
+(84, 'E-UPHONIA', '2024-05-11', 'Stadion Mandala Krida', 'E-Uphonia hadir membawakan pengalaman baru untukmu, dikemas dalam sebuah acara musik dengan melodi-melodi yang akan dibawakan oleh para perfomers yang akan membawa kita semua ke dalam pengalaman konser yang fantastis!\n\nSAVE THE DATE\n🗓11 Mei 2024\n📍Stadion Mandala Krida Yogyakarta\n\nSPECIAL PERFORMANCE by Reality Club, Rumah Sakit, and many more to be announced! 🎸✨\n\nTersedia juga tenant-tenant menarik yang turut hadir meramaikan E-Uphonia 2024 di Stadion Mandala Krida besok loh!! ', 'e-uphonia5.png', 22),
+(85, 'SUM 41', '2024-03-01', 'Uptown Park, Summarecon Mall Serpong', 'Konser perdana dan pemungkas SUM 41 di Yogyakarta sebelum bubar! “Tour Of The Setting Sum - Final Tour”', 'sum 41_15.png', 22),
+(86, 'Jogja Mix Music', '2024-06-04', 'Stadion Mandala Krida', 'Jogja Mix Music merupakan sebuah pertunjukan musik yang dikemas seperti mini carnival, dimana kegiatan ini tidak hanya menyajikan pertunjukan musik saja namun juga menyajikan spesial talk show, game show, serta food truck festival. Jogja Mix Music akan dilaksanakan pada tanggal 4 juni 2023 di parkiran stadion mandala krida Yogyakarta.', 'Jogja Mix Music7.png', 22),
+(87, 'Cimphoria #7 Rumah Sakit', '2024-06-08', 'Stadion Mandala Krida', 'CIMPHORIA #7 merupakan acara penutup dari rangkaian acara CED 2024. Mengusung tema Wandering in Cimphoria Going Through the Atmosphere, kembali berkelana merasakan suasana di Cimphoria #7 yang akan menghadirkan UKM dari UAJY, Talent yang menarik, dan Guest Star yang terkenal dan pastinya asik.\r\n\r\nSo, let\'s grab yours!!!', 'cimporia3.png', 22),
+(88, 'Rhapsody Nusantara', '2024-05-11', 'Candi Prambanan', 'angan berhenti Yang kau takutkan takkan terjadi. Buang rasa sunyi bareng Kunto Aji di Rhapsody Nusantara!\nTak hanya Kunto Aji, Rhapsody Nusantara juga menghadirkan penampilan spesial dari para musisi Tanah Air lainnya seperti Afgan, Lyodra, Letto, Shaggydog, Ndarboy Genk, dan masih banyak lagi!', 'Rhapsody Nusantara11.png', 22),
+(89, 'Berdansalah - Karir ini tidak ada artinya', '2024-04-21', 'GOR Universitas Negeri Yogyakarta', 'Special Show Hindia Live in Yogyakarta: “Berdansalah, Karir Ini Tak Ada Artinya”', 'berdansalah1.png', 22),
+(90, 'DEFRAG', '2024-06-04', 'GOR UNY Jogjakarta', 'Tahun 2020 menjadi penanda kolaborasi antara Hectic Creative dengan Hindia dalam acara Revel Gigs, yang dilaksanakan pada tanggal 31 Januari 2020 di PKKH Universitas Gadjah Mada, Yogyakarta. Momentum ini merupakan kedua kalinya Hindia menyapa Team Hindia, nama penggemar Baskara, di Kota Istimewa. Daniel Baskara Putra (dikenal dengan nama Hindia) memulai solo karir sejak tahun 2018 dengan merilis single \"No One Will Find Me\". Hingga kini, Hindia telah merilis berbagai karya, termasuk album kedua berjudul \"Lagipula Hidup Akan Berakhir\" pada tahun 2023, yang berisikan 24 track yang dibagi dalam dua bagian, termasuk \"Cincin\", \"Berdansalah, Karir Ini Tak Ada Artinya\", dan \"Kita Ke Sana\".', 'defrag4.png', 22),
+(91, 'Joget-In Fest', '2024-06-22', 'Stadium Kridosono Yogyakarta', 'Joget-in Fest adalah sebuah pertunjukan kreasi putra dan putri bangsa, yang menghadirkan berbagai karya musik lintas genre, seni, dan budaya kepada masyarakat Indonesia. Pentas ini di selenggarakan oleh ekeskutif produser film “Jakarta vs Everybody”, mempersembahkan tur festival di negeri ini, dari satu kota ke kota lainnya. Bersiaplah untuk mereguk irama dan suasana beragam rasa, dan ikuti perjalanannya!', 'jogetin fest6.png', 22),
+(92, 'Sahid Live Intimate Concert with Iwan Fals & Band', '2024-06-22', 'Sahid Raya Hotel & Convention Yogyakarta', 'Mengusung konsep tema \'Sahid Intimate Live in Concert with Iwan Fals\', konser ini bertujuan untuk membawa para penonton bernostalgia dan menikmati lagu-lagu legendaris Iwan Fals. Dilengkapi dengan fasilitas Grand Ballroom berkapasitas 1.500 penonton yang nyaman dengan kualitas standar fasilitas hotel bintang 4, konser ini akan menampilkan panggung megah yang memungkinkan penonton menikmati pertunjukan dengan mudah.', 'Iwan Fals12.png', 22),
+(93, 'SMAVENSARY', '2024-06-29', 'Asha Akasa, Yogyakarta', 'Smavensary merupakan event tahunan SMAN 7 Yogyakarta untuk memperingati ulang tahun sekolah. Dalam rangka merayakan Lustrum ke-8, Smavensary tahun ini dibuka untuk umum. Dengan konsep “Diversity in Unity”, Smavensary 2024 bertujuan membawa keberagaman yang ada untuk menumbuhkan rasa persatuan di sekitar kita. Acara ini akan menampilkan pertunjukan dari penampil internal SMAN 7 Yogyakarta dan bintang tamu.', 'SMAVENSARY14.png', 22),
+(94, 'Jurasik Fest 2024', '2024-09-08', 'Stadion Mandala Krida', 'Jurasik Fest kembali merayakan tahun ke-3 dengan penuh semangat pada tahun 2024! Setelah dua tahun sukses menyelenggarakan acara, festival ini kembali dengan format yang lebih menarik dan beragam. Tahun ini, pengunjung akan dimanjakan dengan berbagai pengalaman tak terlupakan, mulai dari penampilan panggung yang spektakuler hingga kegiatan interaktif yang menghibur.\n\nSetelah sukses menghadirkan Tulus dan Kunto Aji pada tahun 2022, serta Maliq & D’Essentials, Nadin Amizah, Sal Priadi, dan Coldiac pada tahun 2023, Jurasik Fest 2024 akan mempersembahkan deretan artis nasional yang akan menghibur dan memukau penonton. Tahun ini, Jurasik Fest kembali menggembirakan dengan mengundang bintang tamu yang tak kalah menarik dari sebelumnya.', 'Jurasik Fest9.jpeg', 22),
+(95, 'Ndeso Run & Fun', '2024-08-25', 'Candi Banyunibo, Yogyakarta', 'Halo Runners, Ndeso Run & Fun akan hadir untuk mewarnai hari-hari di kehidupan kamu! Yuk, persiapkan dirimu untuk mengikuti Ndeso Run & Fun 2024 dengan keluarga maupun teman-teman kamu! Detail kegiatan akan kami umumkan segera, jadi jangan lupa untuk nyalakan notifikasi kamu biar nggak ketinggalan informasi terbaru dari kami. Jangan lupa untuk rajin latihan dan jaga kesehatan selalu! Ndeso Run & Fun 2024 \"Hidup sehat bersama kalian.\" \nPERIODE PENDAFTARAN:\n27 April 2024 - 23 Juni 2024. \nHARI & TANGGAL PELAKSANAAN: \nMinggu, 23 Juni 2024.', 'Ndeso Run Fun10.jpeg', 22);
 
 -- --------------------------------------------------------
 
@@ -392,7 +404,47 @@ CREATE TABLE `transactionitems` (
 
 INSERT INTO `transactionitems` (`id`, `transaction_id`, `ticket_id`, `quantity`) VALUES
 (13, 13, 81, 1),
-(14, 14, 88, 1);
+(14, 14, 88, 1),
+(15, 15, 113, 1),
+(16, 15, 124, 1),
+(17, 15, 126, 1),
+(18, 16, 104, 1),
+(19, 17, 113, 1),
+(20, 17, 124, 1),
+(21, 17, 126, 1),
+(22, 18, 118, 1),
+(23, 19, 81, 1),
+(30, 22, 120, 1),
+(31, 23, 81, 1),
+(36, 26, 119, 1),
+(39, 28, 120, 1),
+(40, 29, 81, 1),
+(41, 30, 119, 1),
+(44, 34, 95, 1),
+(45, 35, 90, 1),
+(46, 36, 98, 1),
+(47, 37, 98, 1),
+(48, 37, 121, 1),
+(49, 38, 119, 1),
+(50, 39, 81, 1),
+(51, 39, 121, 1),
+(52, 40, 121, 1),
+(53, 40, 84, 1),
+(54, 41, 90, 1),
+(55, 42, 113, 1),
+(56, 43, 84, 1),
+(57, 43, 123, 1),
+(58, 44, 82, 1),
+(59, 45, 98, 1),
+(60, 46, 81, 1),
+(61, 47, 121, 1),
+(62, 48, 90, 1),
+(63, 48, 95, 1),
+(64, 49, 114, 1),
+(65, 50, 114, 1),
+(66, 51, 84, 1),
+(67, 52, 121, 1),
+(68, 52, 106, 1);
 
 -- --------------------------------------------------------
 
@@ -415,7 +467,45 @@ CREATE TABLE `transactions` (
 
 INSERT INTO `transactions` (`id`, `user_id`, `total_amount`, `payment_method`, `status`, `created_at`) VALUES
 (13, 20, 155000.00, 'Bank Transfer', '', '2024-06-23 05:12:28'),
-(14, 21, 254000.00, 'Bank Transfer', '', '2024-06-23 05:14:09');
+(14, 21, 254000.00, 'Bank Transfer', '', '2024-06-23 05:14:09'),
+(15, 20, 835000.00, 'Bank Transfer', '', '2024-06-23 10:00:14'),
+(16, 21, 663000.00, 'Bank Transfer', '', '2024-06-23 10:04:56'),
+(17, 20, 835000.00, 'Bank Transfer', '', '2024-06-23 10:05:49'),
+(18, 21, 170000.00, 'Bank Transfer', '', '2024-06-23 10:13:02'),
+(19, 21, 155000.00, 'Bank Transfer', '', '2024-06-23 10:25:04'),
+(20, 21, 1173000.00, 'Bank Transfer', '', '2024-06-23 10:25:21'),
+(21, 21, 1173000.00, 'Bank Transfer', '', '2024-06-23 10:25:36'),
+(22, 20, 355000.00, 'Bank Transfer', '', '2024-06-23 10:27:23'),
+(23, 20, 155000.00, 'Bank Transfer', '', '2024-06-23 10:27:54'),
+(24, 20, 215000.00, 'Bank Transfer', '', '2024-06-23 10:28:22'),
+(25, 20, 215000.00, 'Bank Transfer', '', '2024-06-23 10:37:25'),
+(26, 20, 255000.00, 'Bank Transfer', '', '2024-06-23 10:39:05'),
+(27, 20, 215000.00, 'Bank Transfer', '', '2024-06-23 10:39:30'),
+(28, 20, 355000.00, 'Bank Transfer', '', '2024-06-23 10:48:51'),
+(29, 20, 155000.00, 'Bank Transfer', '', '2024-06-23 10:49:06'),
+(30, 20, 255000.00, 'Bank Transfer', '', '2024-06-23 10:56:26'),
+(31, 20, 240000.00, 'Bank Transfer', '', '2024-06-23 10:57:19'),
+(32, 21, 165000.00, 'Bank Transfer', '', '2024-06-23 11:10:08'),
+(33, 21, 863000.00, 'Bank Transfer', '', '2024-06-23 11:11:19'),
+(34, 20, 90000.00, 'Bank Transfer', '', '2024-06-23 11:31:58'),
+(35, 20, 230000.00, 'Bank Transfer', '', '2024-06-23 11:32:29'),
+(36, 20, 215000.00, 'Bank Transfer', '', '2024-06-23 11:53:14'),
+(37, 20, 465000.00, 'Bank Transfer', '', '2024-06-23 11:54:10'),
+(38, 20, 255000.00, 'Bank Transfer', '', '2024-06-23 11:58:01'),
+(39, 20, 405000.00, 'Bank Transfer', '', '2024-06-23 12:15:23'),
+(40, 20, 365000.00, 'Bank Transfer', '', '2024-06-23 12:16:17'),
+(41, 20, 230000.00, 'Bank Transfer', '', '2024-06-23 12:21:23'),
+(42, 20, 175000.00, 'Bank Transfer', '', '2024-06-23 12:21:49'),
+(43, 20, 265000.00, 'Bank Transfer', '', '2024-06-23 12:22:14'),
+(44, 20, 3505000.00, 'Bank Transfer', '', '2024-06-23 12:56:45'),
+(45, 20, 215000.00, 'Bank Transfer', '', '2024-06-24 12:48:58'),
+(46, 20, 155000.00, 'Bank Transfer', '', '2024-06-24 12:52:11'),
+(47, 20, 255000.00, 'Bank Transfer', '', '2024-06-24 12:54:45'),
+(48, 20, 315000.00, 'Bank Transfer', '', '2024-06-24 12:57:20'),
+(49, 20, 305000.00, 'Bank Transfer', '', '2024-06-25 08:47:34'),
+(50, 20, 305000.00, 'Bank Transfer', '', '2024-06-25 08:47:36'),
+(51, 20, 115000.00, 'Bank Transfer', '', '2024-06-25 08:48:04'),
+(52, 20, 494000.00, 'Bank Transfer', '', '2024-06-25 08:48:32');
 
 -- --------------------------------------------------------
 
@@ -462,8 +552,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `full_name`, `email`, `phone_number`, `password`, `role_id`, `created_at`, `updated_at`) VALUES
-(20, 'Kimi Dandy Yudanarko', 'kimidandy.id@gmail.com', '085210035577', '$2b$10$MSg2oNhqgSp4.J.W0WvfE.Tuyhh259FRZ.LNjYfm/yUHZn8OInsIS', 1, '2024-06-23 05:11:48', '2024-06-23 05:11:48'),
-(21, 'Lina Liliana', 'kimidandy.mail@gmail.com', '085210035578', '$2b$10$pWH0X3HGRfOvMTguQQQC5uoZT2qTnaB6idDhgeQLHniO08BOCtm6e', 1, '2024-06-23 05:13:43', '2024-06-23 05:13:43');
+(20, 'Kimi Dandy Yudanarko', 'akun1@gmail.com', '085210035577', '$2b$10$MSg2oNhqgSp4.J.W0WvfE.Tuyhh259FRZ.LNjYfm/yUHZn8OInsIS', 1, '2024-06-23 05:11:48', '2024-06-25 11:04:55'),
+(21, 'Lina Liliana', 'akun2@gmail.com', '085210035578', '$2b$10$pWH0X3HGRfOvMTguQQQC5uoZT2qTnaB6idDhgeQLHniO08BOCtm6e', 1, '2024-06-23 05:13:43', '2024-06-25 11:05:05'),
+(22, 'Kenzie Dandy Tanarko', 'akun3@gmail.com', '085210035579', '$2b$10$lE7rAPj4QDIEVZ1/0GePkeduPZb87mRxQBk0JjtAUZOcNwKw6KH9C', 2, '2024-06-25 09:22:36', '2024-06-25 11:05:13');
 
 --
 -- Indexes for dumped tables
@@ -584,25 +675,25 @@ ALTER TABLE `artists`
 -- AUTO_INCREMENT for table `cartitems`
 --
 ALTER TABLE `cartitems`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `chatmessages`
 --
 ALTER TABLE `chatmessages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `concerts`
 --
 ALTER TABLE `concerts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `genres`
@@ -620,19 +711,19 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
 
 --
 -- AUTO_INCREMENT for table `transactionitems`
 --
 ALTER TABLE `transactionitems`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `userpreferences`
@@ -644,7 +735,7 @@ ALTER TABLE `userpreferences`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables
