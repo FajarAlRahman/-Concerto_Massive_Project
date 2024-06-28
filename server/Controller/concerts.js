@@ -92,6 +92,28 @@ const getRecommendedConcerts = async (req, res) => {
     }
 };
 
+const getRecommendedLandingConcerts = async (req, res) => {
+    try {
+        const concertNames = ["Sheila on 7", "WESTLIFE", "Rhapsody Nusantara", "Jogja Mix Music"];
+
+        let queryStr = `
+            SELECT concerts.*, MAX(tickets.price) as max_price 
+            FROM concerts 
+            LEFT JOIN tickets ON concerts.id = tickets.concert_id 
+            WHERE concerts.name IN (?)
+            GROUP BY concerts.id 
+            ORDER BY FIELD(concerts.name, ?)
+        `;
+
+        const recommendedConcerts = await query(queryStr, [concertNames, concertNames]);
+        res.json(recommendedConcerts);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Gagal mengambil data rekomendasi konser untuk landing page" });
+    }
+};
+
+
 const createConcert = async (req, res) => {
     const { name, venue, date, genre, artist, description, seller_id, categories } = req.body;
 
@@ -163,6 +185,7 @@ module.exports = {
     getAllConcerts,
     getConcertById,
     getRecommendedConcerts,
+    getRecommendedLandingConcerts,
     createConcert,
     upload,
 };
