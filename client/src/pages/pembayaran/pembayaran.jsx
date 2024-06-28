@@ -184,7 +184,7 @@ function Pembayaran() {
                         {/* Note : Setelah klik bayark sekarang akan keluar modal untuk melihat 
                         detai, kemudian halamn pembayaran akan berubah menjadi payment result */}
                         {/* Payment resul */} 
-                        <div className='payment-result'>
+                        {/* <div className='payment-result'>
                             <div className='payment-result-header'>
                                 {paymentResult === "Berhasil" ? (
                                     <img className="icon-check" src={berhasilImg} alt='berhasil' />
@@ -241,7 +241,7 @@ function Pembayaran() {
                                     {paymentResult === "Berhasil" ? "Kembali" : "Pesan Ulang"}
                                 </button>
                             </div>
-                        </div>
+                        </div> */}
                         {/* End Payment resul */}
 
 

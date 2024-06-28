@@ -45,11 +45,11 @@ export const Profile = () => {
                         <form className="form-profile" action="" method="">
                             <div className="form-item">
                                 <label htmlFor="namaLengkap" className="form-label">Nama Lengkap</label>
-                                <input type="text" className="form-control" id="namaLengkap" placeholder="Rania Dahayu" />
+                                <input type="text" className="form-control" id="namaLengkap" placeholder="Isi nama lengkap Anda di sini" />
                             </div>
                             <div className="form-item">
                                 <label htmlFor="bio" className="form-label">Bio</label>
-                                <input type="text" className="form-control" id="bio" placeholder="I Love Music ^_^" />
+                                <input type="text" className="form-control" id="bio" placeholder="Masukkan bio Anda" />
                             </div>
                             <div className="form-item">
                                 <label htmlFor="favorit" className="form-label">Favorit</label>
@@ -65,15 +65,15 @@ export const Profile = () => {
                             </div>
                             <div className="form-item">
                                 <label htmlFor="tgl-lahir" className="form-label">Tanggal Lahir</label>
-                                <input type="date" className="form-control" id="tgl-lahir" placeholder="23/05/2003" />
+                                <input type="date" className="form-control" id="tgl-lahir" placeholder="Masukkan tanggal lahir Anda" />
                             </div>
                             <div className="form-item">
                                 <label htmlFor="provinsi" className="form-label">Provinsi</label>
-                                <input type="text" className="form-control" id="provinsi" placeholder="Yogyakarta" />
+                                <input type="text" className="form-control" id="provinsi" placeholder="Masukkan provinsi Anda tinggal" />
                             </div>
                             <div className="form-item">
                                 <label htmlFor="kab-kota" className="form-label">Kabupaten/Kota</label>
-                                <input type="text" className="form-control" id="kab-kota" placeholder="Yogyakarta" />
+                                <input type="text" className="form-control" id="kab-kota" placeholder="Masukkan Kabupaten/Kota Anda tinggal" />
                             </div>
                             <div className="form-item">
                                 <label htmlFor="jenisKelamin" className="form-label">Jenis Kelamin</label>
@@ -85,11 +85,11 @@ export const Profile = () => {
                             </div>
                             <div className="form-item">
                                 <label htmlFor="email" className="form-label">Email</label>
-                                <input type="email" className="form-control" id="email" placeholder="Pop" />
+                                <input type="email" className="form-control" id="email" placeholder="Masukkan alamat Email Anda" />
                             </div>
                             <div className="form-item">
                                 <label htmlFor="noWa" className="form-label">No WhatsApp</label>
-                                <input type="text" className="form-control" id="noWa" placeholder="Pop" />
+                                <input type="text" className="form-control" id="noWa" placeholder="Masukkan No. WhatsApp Anda" />
                             </div>
                             <div className="form-btn">
                                 <button type="submit" className="btn btn-simpan">Simpan</button>
