@@ -1,5 +1,5 @@
 const express = require('express');
-const { Register, RegisterSeller, SavePreferences, Login } = require('../Controller/user');
+const { Register, RegisterSeller, SavePreferences, Login, getProfile, updateProfile,getFavorites,changePassword } = require('../Controller/user');
 const { getGenres } = require('../Controller/genres');
 const { getArtists } = require('../Controller/artists');
 const { getAllConcerts, getConcertById, getRecommendedConcerts, getRecommendedLandingConcerts, createConcert, upload } = require('../Controller/concerts');
@@ -29,6 +29,10 @@ router.post('/cart', addToCart);
 router.get('/cart', getCartItems);
 router.delete('/cart/:id', deleteCartItem);
 router.put('/cart/:id', updateCartItemQuantity); 
+router.get('/profile', getProfile);
+router.post('/profile', updateProfile);
+router.get('/favorites', getFavorites);
+router.post('/change-password', changePassword);
 
 // Chat routes
 router.get('/chat/messages', getMessages);

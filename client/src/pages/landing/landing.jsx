@@ -186,7 +186,7 @@ const Landing = () => {
                                 <div className="footer-konser">
                                     <div className="footer-wrapper">
                                         <div className="harga-konser">Rp {concert.max_price ? concert.max_price.toLocaleString() : "N/A"}</div>
-                                        <button type="button" className="btn btn-konser" onClick={() => navigate(`../halamanKonser/${concert.id}`)}>Beli Tiket</button>
+                                        <button type="button" className="btn btn-konser" onClick={() => navigate('../login')}>Beli Tiket</button>
                                     </div>
                                 </div>
 
