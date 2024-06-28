@@ -149,13 +149,19 @@ const updateProfile = async (req, res) => {
 
     try {
         await query("UPDATE users SET full_name = ?, phone_number = ? WHERE id = ?", [full_name, phone_number, userId]);
-        await query(`
-            INSERT INTO user_details (user_id, bio, favorite, birthdate, province, city, gender) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-            ON DUPLICATE KEY UPDATE 
-                bio = VALUES(bio), favorite = VALUES(favorite), birthdate = VALUES(birthdate), 
-                province = VALUES(province), city = VALUES(city), gender = VALUES(gender)
-        `, [userId, bio, favorite, birthdate, province, city, gender]);
+        const existingUserDetails = await query("SELECT * FROM user_details WHERE user_id = ?", [userId]);
+
+        if (existingUserDetails.length > 0) {
+            await query(`
+                UPDATE user_details SET bio = ?, favorite = ?, birthdate = ?, province = ?, city = ?, gender = ?
+                WHERE user_id = ?
+            `, [bio, favorite, birthdate, province, city, gender, userId]);
+        } else {
+            await query(`
+                INSERT INTO user_details (user_id, bio, favorite, birthdate, province, city, gender) 
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            `, [userId, bio, favorite, birthdate, province, city, gender]);
+        }
 
         res.json({ message: "Profile updated successfully" });
     } catch (error) {
