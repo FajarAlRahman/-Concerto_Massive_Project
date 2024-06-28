@@ -1,9 +1,9 @@
 const express = require('express');
-const { Register, RegisterSeller, SavePreferences, Login, getProfile, updateProfile,getFavorites,changePassword } = require('../Controller/user');
+const { Register, RegisterSeller, SavePreferences, Login, getProfile, updateProfile, getFavorites, changePassword } = require('../Controller/user');
 const { getGenres } = require('../Controller/genres');
 const { getArtists } = require('../Controller/artists');
 const { getAllConcerts, getConcertById, getRecommendedConcerts, getRecommendedLandingConcerts, createConcert, getConcertsBySeller, upload } = require('../Controller/concerts');
-const { getUserById, saveTransaction } = require('../Controller/transactions');
+const { getUserById, saveTransaction, getRevenueData, getSalesReport } = require('../Controller/transactions');
 const { getAllData, getFriends } = require('../Controller/friends');
 const { getMessages, sendMessage, getUserById: getChatUserById } = require('../Controller/chat');
 const { addToCart, getCartItems, deleteCartItem, updateCartItemQuantity } = require('../Controller/keranjang');
@@ -34,8 +34,8 @@ router.get('/profile', getProfile);
 router.post('/profile', updateProfile);
 router.get('/favorites', getFavorites);
 router.post('/change-password', changePassword);
-
-// Chat routes
+router.get('/revenue', getRevenueData);
+router.get('/sales-report', getSalesReport);
 router.get('/chat/messages', getMessages);
 router.post('/chat/send', sendMessage);
 router.get('/chat/user/:userId', getChatUserById); 

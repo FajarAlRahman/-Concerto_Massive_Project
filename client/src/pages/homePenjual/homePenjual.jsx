@@ -34,7 +34,7 @@ export const HomePenjual = () => {
                                     <a href="#"> di sini.</a>
                                 </p>
                                 <img src={chartImg} alt="icon-main-penjual" className="icon-main-penjual"/>
-                                <button type="button" className="btn btn-main-penjual" onClick={() => navigate('#')}>Pendapatan</button>
+                                <button type="button" className="btn btn-main-penjual" onClick={() => navigate('/pendapatan')}>Pendapatan</button>
                             </div>
                         </div>
                         </div>
