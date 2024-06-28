@@ -34,12 +34,12 @@ const NavbarPenjual = () => {
                   Pendapatan
                 </Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link className="nav-link" to="/notifikasi">
                   <BsBell className="nav-icon" />
                   Notifikasi
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div className="profile-nav">
