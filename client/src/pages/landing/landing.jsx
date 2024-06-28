@@ -4,6 +4,13 @@ import axios from 'axios';
 import { FaStar } from "react-icons/fa";
 import "./landing.css";
 
+import compassImg from '../../assets/img/Compass_fill.svg';
+import searchImg from '../../assets/img/Search.svg';
+import groubAddImg from '../../assets/img/group_add_fil.svg';
+import basketImg from '../../assets/img/Basket_alt_3_fill.svg';
+import linkedInImg from '../../assets/img/linkedin.svg';
+import twitterImg from '../../assets/img/twitter.svg';
+import facebookImg from '../../assets/img/facebook.svg';
 import banner1 from '../../assets/img/spotlight-1.png';
 import banner2 from '../../assets/img/spotlight-2.png';
 import banner3 from '../../assets/img/spotlight-3.png';
@@ -74,7 +81,46 @@ const Landing = () => {
     };
 
     return (
-        <div className="home">
+        <div className="landing">
+            <nav className="navbar navbar-expand-lg bg-dar">
+                    <div className="container-fluid mx-5">
+                        <a className="navbar-brand" href="#">concerto.</a>
+                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                                {/* <form className="search d-flex" role="search">
+                                    <div className="input-group flex-nowrap">
+                                        <span className="input-group-text" id="addon-wrapping">
+                                            <img className="search-icon" alt="Search fill" src={searchImg} />
+                                        </span>
+                                        <input type="search" className="form-control" placeholder="Cari Konser" aria-label="search" aria-describedby="addon-wrapping" />
+                                    </div>
+                                </form> */}
+                                <li className="nav-item">
+                                    <a className="nav-link" aria-current="page" href="#" onClick={() => navigate('../jelajah')}>
+                                        <img className="menu-icon" alt="menu-icon" src={compassImg} />
+                                        Jelajah
+                                    </a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" aria-current="page" href="#" onClick={() => navigate('#')}>
+                                        <img className="groub-icon" alt="menu-icon" src={groubAddImg} />
+                                        Cari Teman
+                                    </a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" aria-current="page" href="#" onClick={() => navigate('#')}>
+                                        <img className="menu-icon" alt="menu-icon" src={basketImg} />
+                                        Keranjang
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <button type="button" className="btn btn-login" onClick={() => navigate('../login')}>Masuk</button>
+                    </div>
+                </nav>
             <div className="spotlight">
                 {/* <div className="container-fluid mx-5"> */}
                     <div id="carouselExampleDark" className="carousel carousel-dark slide">

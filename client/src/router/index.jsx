@@ -28,6 +28,7 @@ const AppRouter = () => {
   return (
     <Routes>
       {/* Routes with AuthLayout */}
+      <Route path="/" element={<AuthLayout><Landing /></AuthLayout>} />
       <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
       <Route path="/daftar" element={<AuthLayout><Daftar /></AuthLayout>} />
       <Route path="/minati" element={<AuthLayout><Minati /></AuthLayout>} />
@@ -38,7 +39,7 @@ const AppRouter = () => {
       <Route path="/daftarPenjual" element={<AuthLayout><DaftarPenjual /></AuthLayout>} />
 
       {/* Routes with AppLayout */}
-      <Route path="/" element={<AppLayout><Landing /></AppLayout>} />
+      
       <Route path="/home" element={<AppLayout><Home /></AppLayout>} />
       <Route path="/jelajah" element={<AppLayout><Jelajah /></AppLayout>} />
       <Route path="/cariTeman" element={<AppLayout><CariTeman /></AppLayout>} />
