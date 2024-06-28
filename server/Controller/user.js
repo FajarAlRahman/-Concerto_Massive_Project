@@ -89,6 +89,7 @@ const Login = async (req, res) => {
             role: user.role_id,  // Tambahkan role ke response
             msg: "Login Berhasil" 
         });
+        console.log(req.session.userId);
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: "Login Gagal" });

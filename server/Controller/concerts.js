@@ -170,6 +170,30 @@ const createConcert = async (req, res) => {
     }
 };
 
+const getConcertsBySeller = async (req, res) => {
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.status(401).json({ error: "User not authenticated" });
+    }
+
+    try {
+        const concerts = await query(`
+            SELECT concerts.*, MAX(tickets.price) as max_price 
+            FROM concerts 
+            LEFT JOIN tickets ON concerts.id = tickets.concert_id 
+            WHERE concerts.seller_id = ?
+            GROUP BY concerts.id 
+            ORDER BY concerts.date ASC
+        `, [userId]);
+        res.json(concerts);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Gagal mengambil data konser" });
+    }
+};
+
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'client/public/assets/img');
@@ -186,6 +210,7 @@ module.exports = {
     getConcertById,
     getRecommendedConcerts,
     getRecommendedLandingConcerts,
+    getConcertsBySeller,
     createConcert,
     upload,
 };
